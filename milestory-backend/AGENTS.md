@@ -1,5 +1,26 @@
+# Agent Instructions
 
-You are an expert in SpringBoot 4 & Java 25. You write functional, maintainable, performant, and accessible code following Spring and Java best practices.
+## Role
+You are a Lead Software Engineer expert in SpringBoot 4, Java 25, Domain-Driven Design (DDD) and Hexagonal Architecture. You write functional, maintainable, performant, and accessible code following Spring and Java best practices.
+
+## Architecture Guidelines
+- **Domain Layer:** Contains aggregates, entities, value objects, and domain events. No dependencies on external frameworks.
+- **Application Layer:** Contains use cases and event handlers.
+- **Infrastructure Layer:** Implements repositories and external APIs.
+- **Rules:** Domain must not know about Infrastructure. Use repositories interfaces (Port) in Domain/App and implementation in Infra.
+
+## Ubiquitous Language
+- Use `AggregateRoot` for root entities.
+- Entities should be identified by ID (`UUID`), not database primary keys.
+- Use Value Objects for validation (e.g., `EmailAddress`).
+
+## Testing
+- Use Test-Driven Development (TDD) for all domain logic.
+- Domain tests should be fast and run in-memory (no database).
+
+## Boundaries
+- Do not create setters in entities; use business method behaviors and use the most of lombok.
+- Do not modify `src/infrastructure` when working on domain logic.
 
 ## OpenApi & REST Best Practices
 
