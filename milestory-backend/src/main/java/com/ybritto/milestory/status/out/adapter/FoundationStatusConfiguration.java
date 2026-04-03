@@ -1,7 +1,7 @@
-package com.ybritto.milestory.infrastructure.status;
+package com.ybritto.milestory.status.out.adapter;
 
-import com.ybritto.milestory.application.status.FoundationRuntimeStatusProvider;
-import com.ybritto.milestory.application.status.GetFoundationStatusUseCase;
+import com.ybritto.milestory.status.application.port.out.FoundationRuntimeStatusPort;
+import com.ybritto.milestory.status.application.usecase.GetFoundationStatusUseCase;
 import java.time.Clock;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
@@ -18,10 +18,10 @@ class FoundationStatusConfiguration {
 
     @Bean
     GetFoundationStatusUseCase getFoundationStatusUseCase(
-            FoundationRuntimeStatusProvider runtimeStatusProvider,
+            FoundationRuntimeStatusPort foundationRuntimeStatusPort,
             Clock foundationStatusClock
     ) {
         log.debug("Creating GetFoundationStatusUseCase bean");
-        return new GetFoundationStatusUseCase(runtimeStatusProvider, foundationStatusClock);
+        return new GetFoundationStatusUseCase(foundationRuntimeStatusPort, foundationStatusClock);
     }
 }

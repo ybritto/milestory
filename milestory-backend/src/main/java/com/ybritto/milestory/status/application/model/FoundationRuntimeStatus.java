@@ -1,4 +1,4 @@
-package com.ybritto.milestory.application.status;
+package com.ybritto.milestory.status.application.model;
 
 public record FoundationRuntimeStatus(
         String applicationName,

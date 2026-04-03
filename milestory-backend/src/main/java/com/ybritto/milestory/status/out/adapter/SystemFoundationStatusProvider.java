@@ -1,7 +1,7 @@
-package com.ybritto.milestory.infrastructure.status;
+package com.ybritto.milestory.status.out.adapter;
 
-import com.ybritto.milestory.application.status.FoundationRuntimeStatus;
-import com.ybritto.milestory.application.status.FoundationRuntimeStatusProvider;
+import com.ybritto.milestory.status.application.model.FoundationRuntimeStatus;
+import com.ybritto.milestory.status.application.port.out.FoundationRuntimeStatusPort;
 import javax.sql.DataSource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.env.Environment;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
-public class SystemFoundationStatusService implements FoundationRuntimeStatusProvider {
+public class SystemFoundationStatusProvider implements FoundationRuntimeStatusPort {
 
     static final String BASELINE_ID = "001-foundation-baseline";
 
@@ -20,7 +20,7 @@ public class SystemFoundationStatusService implements FoundationRuntimeStatusPro
     private final ResourceLoader resourceLoader;
     private final String applicationName;
 
-    public SystemFoundationStatusService(
+    public SystemFoundationStatusProvider(
             Environment environment,
             DataSource dataSource,
             ResourceLoader resourceLoader

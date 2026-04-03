@@ -1,10 +1,10 @@
-package com.ybritto.milestory.infrastructure.api;
+package com.ybritto.milestory.status.in.controller;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.ybritto.milestory.domain.status.FoundationStatus;
-import com.ybritto.milestory.domain.status.FoundationStatusMode;
+import com.ybritto.milestory.status.domain.FoundationStatus;
+import com.ybritto.milestory.status.domain.FoundationStatusMode;
 import com.ybritto.milestory.generated.model.FoundationStatusResponse;
 import com.ybritto.milestory.generated.model.FoundationStatusResponseMode;
 import java.time.Instant;

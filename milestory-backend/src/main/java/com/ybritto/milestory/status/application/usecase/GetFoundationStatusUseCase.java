@@ -1,7 +1,9 @@
-package com.ybritto.milestory.application.status;
+package com.ybritto.milestory.status.application.usecase;
 
-import com.ybritto.milestory.domain.status.FoundationStatus;
-import com.ybritto.milestory.domain.status.FoundationStatusMode;
+import com.ybritto.milestory.status.application.model.FoundationRuntimeStatus;
+import com.ybritto.milestory.status.application.port.out.FoundationRuntimeStatusPort;
+import com.ybritto.milestory.status.domain.FoundationStatus;
+import com.ybritto.milestory.status.domain.FoundationStatusMode;
 import java.time.Clock;
 import java.time.Instant;
 import java.util.ArrayList;
@@ -11,20 +13,20 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class GetFoundationStatusUseCase {
 
-    private final FoundationRuntimeStatusProvider runtimeStatusProvider;
+    private final FoundationRuntimeStatusPort foundationRuntimeStatusPort;
     private final Clock clock;
 
-    public GetFoundationStatusUseCase(FoundationRuntimeStatusProvider runtimeStatusProvider) {
-        this(runtimeStatusProvider, Clock.systemUTC());
+    public GetFoundationStatusUseCase(FoundationRuntimeStatusPort foundationRuntimeStatusPort) {
+        this(foundationRuntimeStatusPort, Clock.systemUTC());
     }
 
-    public GetFoundationStatusUseCase(FoundationRuntimeStatusProvider runtimeStatusProvider, Clock clock) {
-        this.runtimeStatusProvider = runtimeStatusProvider;
+    public GetFoundationStatusUseCase(FoundationRuntimeStatusPort foundationRuntimeStatusPort, Clock clock) {
+        this.foundationRuntimeStatusPort = foundationRuntimeStatusPort;
         this.clock = clock;
     }
 
     public FoundationStatus getStatus() {
-        FoundationRuntimeStatus runtimeStatus = runtimeStatusProvider.getCurrentStatus();
+        FoundationRuntimeStatus runtimeStatus = foundationRuntimeStatusPort.getCurrentStatus();
         FoundationStatusMode mode = determineMode(runtimeStatus);
         log.debug("Computed foundation status mode {}", mode);
         String headline = switch (mode) {

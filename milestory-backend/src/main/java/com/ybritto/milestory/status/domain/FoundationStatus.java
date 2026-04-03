@@ -1,4 +1,4 @@
-package com.ybritto.milestory.domain.status;
+package com.ybritto.milestory.status.domain;
 
 import java.time.Instant;
 import java.util.List;

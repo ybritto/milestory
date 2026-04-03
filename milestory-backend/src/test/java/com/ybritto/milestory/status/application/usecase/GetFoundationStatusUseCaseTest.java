@@ -1,16 +1,17 @@
-package com.ybritto.milestory.application.status;
+package com.ybritto.milestory.status.application.usecase;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import com.ybritto.milestory.domain.status.FoundationStatus;
-import com.ybritto.milestory.domain.status.FoundationStatusMode;
+import com.ybritto.milestory.status.application.model.FoundationRuntimeStatus;
+import com.ybritto.milestory.status.domain.FoundationStatus;
+import com.ybritto.milestory.status.domain.FoundationStatusMode;
 import java.time.Clock;
 import java.time.Instant;
 import java.time.ZoneOffset;
 import org.junit.jupiter.api.Test;
 
-class AppStatusServiceTest {
+class GetFoundationStatusUseCaseTest {
 
     private static final Clock FIXED_CLOCK = Clock.fixed(Instant.parse("2026-04-04T00:00:00Z"), ZoneOffset.UTC);
 

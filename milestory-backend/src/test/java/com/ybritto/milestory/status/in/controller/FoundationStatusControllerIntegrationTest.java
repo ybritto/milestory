@@ -1,4 +1,4 @@
-package com.ybritto.milestory.infrastructure.api;
+package com.ybritto.milestory.status.in.controller;
 
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
@@ -6,8 +6,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.ybritto.milestory.application.status.FoundationRuntimeStatus;
-import com.ybritto.milestory.application.status.GetFoundationStatusUseCase;
+import com.ybritto.milestory.status.application.model.FoundationRuntimeStatus;
+import com.ybritto.milestory.status.application.port.out.FoundationRuntimeStatusPort;
+import com.ybritto.milestory.status.application.usecase.GetFoundationStatusUseCase;
 import java.time.Clock;
 import java.time.Instant;
 import java.time.ZoneOffset;
@@ -17,7 +18,7 @@ import org.mapstruct.factory.Mappers;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-class PersonalModeStatusIntegrationTest {
+class FoundationStatusControllerIntegrationTest {
 
     private MockMvc mockMvc;
 
@@ -25,7 +26,7 @@ class PersonalModeStatusIntegrationTest {
     void setUp() {
         FoundationStatusController controller = new FoundationStatusController(
                 new GetFoundationStatusUseCase(
-                        () -> new FoundationRuntimeStatus(
+                        (FoundationRuntimeStatusPort) () -> new FoundationRuntimeStatus(
                                 "Milestory",
                                 "test",
                                 "milestory",
