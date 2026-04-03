@@ -1,5 +1,5 @@
 /**
- * MileStory API
+ * Milestory API
  *
  * 
  *
@@ -17,9 +17,9 @@ import { Observable }                                        from 'rxjs';
 import { OpenApiHttpParams, QueryParamStyle } from '../query.params';
 
 // @ts-ignore
-import { ApiV1HelloGet200Response } from '../model/apiV1HelloGet200Response';
+import { GetFoundationStatus200Response } from '../model/getFoundationStatus200Response';
 // @ts-ignore
-import { ApiV1HelloGet500Response } from '../model/apiV1HelloGet500Response';
+import { GetFoundationStatus503Response } from '../model/getFoundationStatus503Response';
 
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
@@ -31,29 +31,26 @@ import { BaseService } from '../api.base.service';
 @Injectable({
   providedIn: 'root'
 })
-export class DefaultService extends BaseService {
+export class FoundationStatusService extends BaseService {
 
     constructor(protected httpClient: HttpClient, @Optional() @Inject(BASE_PATH) basePath: string|string[], @Optional() configuration?: Configuration) {
         super(basePath, configuration);
     }
 
     /**
-     * Hello World endpoint
-     * Returns a greeting message.
-     * @endpoint get /api/v1/hello
+     * Get foundation status
+     * Returns the current foundation status for the Phase 1 Milestory home screen.
+     * @endpoint get /api/v1/status
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      * @param options additional options
      */
-    public apiV1HelloGet(observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<ApiV1HelloGet200Response>;
-    public apiV1HelloGet(observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<ApiV1HelloGet200Response>>;
-    public apiV1HelloGet(observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<ApiV1HelloGet200Response>>;
-    public apiV1HelloGet(observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public getFoundationStatus(observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<GetFoundationStatus200Response>;
+    public getFoundationStatus(observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<GetFoundationStatus200Response>>;
+    public getFoundationStatus(observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<GetFoundationStatus200Response>>;
+    public getFoundationStatus(observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
 
         let localVarHeaders = this.defaultHeaders;
-
-        // authentication (bearerAuth) required
-        localVarHeaders = this.configuration.addCredentialToHeaders('bearerAuth', 'Authorization', localVarHeaders, 'Bearer ');
 
         const localVarHttpHeaderAcceptSelected: string | undefined = options?.httpHeaderAccept ?? this.configuration.selectHeaderAccept([
             'application/json'
@@ -78,9 +75,9 @@ export class DefaultService extends BaseService {
             }
         }
 
-        let localVarPath = `/api/v1/hello`;
+        let localVarPath = `/api/v1/status`;
         const { basePath, withCredentials } = this.configuration;
-        return this.httpClient.request<ApiV1HelloGet200Response>('get', `${basePath}${localVarPath}`,
+        return this.httpClient.request<GetFoundationStatus200Response>('get', `${basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
                 responseType: <any>responseType_,

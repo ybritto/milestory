@@ -1,5 +1,5 @@
 /**
- * MileStory API
+ * Milestory API
  *
  * 
  *

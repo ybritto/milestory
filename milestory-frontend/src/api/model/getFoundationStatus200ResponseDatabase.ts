@@ -1,5 +1,5 @@
 /**
- * MileStory API
+ * Milestory API
  *
  * 
  *
@@ -9,7 +9,8 @@
  */
 
 
-export interface ApiV1HelloGet500Response { 
-    error?: string;
+export interface GetFoundationStatus200ResponseDatabase { 
+    status: string;
+    name: string;
 }
 

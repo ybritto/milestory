@@ -1,3 +1,3 @@
-export * from './default.service';
-import { DefaultService } from './default.service';
-export const APIS = [DefaultService];
+export * from './foundationStatus.service';
+import { FoundationStatusService } from './foundationStatus.service';
+export const APIS = [FoundationStatusService];

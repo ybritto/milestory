@@ -1,5 +1,5 @@
 /**
- * MileStory API
+ * Milestory API
  *
  * 
  *
@@ -9,7 +9,8 @@
  */
 
 
-export interface ApiV1HelloGet200Response { 
-    message?: string;
+export interface GetFoundationStatus200ResponseMigration { 
+    status: string;
+    baseline: string;
 }
 
