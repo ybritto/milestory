@@ -33,7 +33,11 @@ You are a Lead Software Engineer expert in SpringBoot 4, Java 25, Domain-Driven 
 - Be cautious with @Slf4j in classes that may be instantiated frequently to avoid performance issues
 
 ## Logging Best Practices
-- Use SLF4J with Logback for logging
+- Use SLF4J from Lombok for logging
 - Log at appropriate levels (e.g., DEBUG for development, INFO for production)
 - Avoid logging sensitive information (e.g., passwords, personal data)
 - Use structured logging for better log analysis (e.g., JSON format)
+
+## Mapping Best Practices
+- Use MapStruct for mapping between domain entities and DTOs.
+- Define mappers in the appropriated package following DDD best practicies.

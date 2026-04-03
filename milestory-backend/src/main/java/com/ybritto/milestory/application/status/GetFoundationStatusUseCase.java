@@ -6,7 +6,9 @@ import java.time.Clock;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class GetFoundationStatusUseCase {
 
     private final FoundationRuntimeStatusProvider runtimeStatusProvider;
@@ -24,6 +26,7 @@ public class GetFoundationStatusUseCase {
     public FoundationStatus getStatus() {
         FoundationRuntimeStatus runtimeStatus = runtimeStatusProvider.getCurrentStatus();
         FoundationStatusMode mode = determineMode(runtimeStatus);
+        log.debug("Computed foundation status mode {}", mode);
         String headline = switch (mode) {
             case READY -> runtimeStatus.applicationName() + " foundation is ready";
             case EMPTY -> runtimeStatus.applicationName() + " foundation is waiting for baseline data";

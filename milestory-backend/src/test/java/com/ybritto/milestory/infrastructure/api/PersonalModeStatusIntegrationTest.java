@@ -13,6 +13,7 @@ import java.time.Instant;
 import java.time.ZoneOffset;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mapstruct.factory.Mappers;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
@@ -33,7 +34,8 @@ class PersonalModeStatusIntegrationTest {
                                 "001-foundation-baseline"
                         ),
                         Clock.fixed(Instant.parse("2026-04-04T00:00:00Z"), ZoneOffset.UTC)
-                )
+                ),
+                Mappers.getMapper(FoundationStatusResponseMapper.class)
         );
 
         this.mockMvc = MockMvcBuilders.standaloneSetup(controller).build();

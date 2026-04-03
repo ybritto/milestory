@@ -3,12 +3,14 @@ package com.ybritto.milestory.infrastructure.status;
 import com.ybritto.milestory.application.status.FoundationRuntimeStatus;
 import com.ybritto.milestory.application.status.FoundationRuntimeStatusProvider;
 import javax.sql.DataSource;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 @Service
+@Slf4j
 public class SystemFoundationStatusService implements FoundationRuntimeStatusProvider {
 
     static final String BASELINE_ID = "001-foundation-baseline";
@@ -59,7 +61,7 @@ public class SystemFoundationStatusService implements FoundationRuntimeStatusPro
                 return currentDatabase;
             }
         } catch (RuntimeException ex) {
-            // Fall through to configuration parsing when the database is not reachable yet.
+            log.debug("Falling back to datasource URL parsing for database name discovery", ex);
         }
 
         String url = environment.getProperty("spring.datasource.url");
@@ -79,6 +81,7 @@ public class SystemFoundationStatusService implements FoundationRuntimeStatusPro
             Integer validation = jdbcTemplate.queryForObject("select 1", Integer.class);
             return validation != null && validation == 1 ? "connected" : "unavailable";
         } catch (RuntimeException ex) {
+            log.debug("Database connectivity check failed", ex);
             return "unavailable";
         }
     }
@@ -99,6 +102,7 @@ public class SystemFoundationStatusService implements FoundationRuntimeStatusPro
             );
             return appliedRows != null && appliedRows > 0 ? "applied" : "baseline-pending";
         } catch (RuntimeException ex) {
+            log.debug("Could not verify Liquibase baseline status", ex);
             return "baseline-pending";
         }
     }
