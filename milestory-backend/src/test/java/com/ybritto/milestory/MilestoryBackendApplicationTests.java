@@ -1,10 +1,10 @@
-package com.ybritto.template;
+package com.ybritto.milestory;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class TemplateBackendApplicationTests {
+class MilestoryBackendApplicationTests {
 
 	@Test
 	void contextLoads() {

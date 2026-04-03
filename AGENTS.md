@@ -10,7 +10,7 @@ Typical indicators of template state include placeholder values such as:
 - `template-api`
 - `template-backend`
 - `template-frontend`
-- `com.ybritto.template`
+- `com.ybritto.milestory`
 - `TemplateBackendApplication`
 - `template.jwt`
 - `TEMPLATE_*`
@@ -35,7 +35,7 @@ When the repository is still in template state, guide or execute the following i
 2. Prefer running `./init-template.sh <app-name> <java-package>` to perform the structural renames.
 3. Rename root Maven coordinates such as `template-app`.
 4. Rename module names and directories such as `template-api`, `template-backend`, and `template-frontend`.
-5. Rename Java package names and Spring Boot application class names derived from `com.ybritto.template`.
+5. Rename Java package names and Spring Boot application class names derived from `com.ybritto.milestory`.
 6. Rename backend configuration prefixes and environment variables derived from `template` or `TEMPLATE_`.
 7. Rename frontend project identity in Angular and npm metadata.
 8. Verify backend and frontend references to the API module still match after renaming.

@@ -1,7 +1,7 @@
 services:
   postgres:
     image: postgres:18
-    container_name: template-postgres
+    container_name: milestory-postgres
     environment:
       POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_USER: ${POSTGRES_USER}

@@ -1,12 +1,12 @@
 spring:
   application:
-    name: template-backend
+    name: milestory-backend
   profiles:
     default: local
   datasource:
-    url: ${TEMPLATE_DB_URL:jdbc:postgresql://localhost:5432/template}
-    username: ${TEMPLATE_DB_USERNAME:template}
-    password: ${TEMPLATE_DB_PASSWORD:template}
+    url: ${MILESTORY_DB_URL:jdbc:postgresql://localhost:5432/milestory}
+    username: ${MILESTORY_DB_USERNAME:milestory}
+    password: ${MILESTORY_DB_PASSWORD:milestory}
     driver-class-name: org.postgresql.Driver
   jpa:
     open-in-view: false
@@ -19,22 +19,3 @@ spring:
   liquibase:
     enabled: true
     change-log: classpath:/db/changelog/db.changelog-master.yaml
-  mail:
-    host: ${TEMPLATE_MAIL_HOST:localhost}
-    port: ${TEMPLATE_MAIL_PORT:1025}
-    username: ${TEMPLATE_MAIL_USERNAME:}
-    password: ${TEMPLATE_MAIL_PASSWORD:}
-    properties:
-      mail:
-        smtp:
-          auth: ${MILESTORY_MAIL_AUTH:false}
-          starttls:
-            enable: ${MILESTORY_MAIL_STARTTLS:false}
-
-template:
-  jwt:
-    issuer: ${TEMPLATE_JWT_ISSUER:template-local}
-    audience: ${TEMPLATE_JWT_AUDIENCE:template-web}
-    access-token-ttl: ${TEMPLATE_JWT_ACCESS_TOKEN_TTL:PT15M}
-    refresh-token-ttl: ${TEMPLATE_JWT_REFRESH_TOKEN_TTL:P30D}
-    secret: ${TEMPLATE_JWT_SECRET:replace-me-in-real-environments}

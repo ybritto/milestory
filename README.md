@@ -76,7 +76,7 @@ Typical example:
 - `template-api` -> `acme-api`
 - `template-backend` -> `acme-backend`
 - `template-frontend` -> `acme-frontend`
-- `com.ybritto.template` -> `com.ybritto.acme`
+- `com.ybritto.milestory` -> `com.ybritto.acme`
 
 ### Rename folders and modules
 
@@ -100,7 +100,7 @@ The backend should also be renamed from the placeholder package to your real pac
 
 Current placeholder examples:
 
-- `com.ybritto.template`
+- `com.ybritto.milestory`
 - `TemplateBackendApplication`
 - `TemplateBackendApplicationTests`
 

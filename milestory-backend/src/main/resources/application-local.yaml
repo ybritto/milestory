@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:postgresql://${TEMPLATE_DB_HOST:localhost}:${TEMPLATE_DB_PORT:5432}/${TEMPLATE_DB_NAME:template}
-    username: ${TEMPLATE_DB_USERNAME:template}
-    password: ${TEMPLATE_DB_PASSWORD:template}
+    url: jdbc:postgresql://${MILESTORY_DB_HOST:localhost}:${MILESTORY_DB_PORT:5432}/${MILESTORY_DB_NAME:}
+    username: ${MILESTORY_DB_USERNAME:milestory}
+    password: ${MILESTORY_DB_PASSWORD:milestory}
   jpa:
     show-sql: false
     properties:
@@ -10,16 +10,3 @@ spring:
         format_sql: true
   liquibase:
     change-log: classpath:/db/changelog/db.changelog-master.yaml
-  mail:
-    host: ${TEMPLATE_MAIL_HOST:localhost}
-    port: ${TEMPLATE_MAIL_PORT:1025}
-    username: ${TEMPLATE_MAIL_USERNAME:}
-    password: ${TEMPLATE_MAIL_PASSWORD:}
-
-template:
-  jwt:
-    issuer: ${TEMPLATE_JWT_ISSUER:template-local}
-    audience: ${TEMPLATE_JWT_AUDIENCE:template-web}
-    access-token-ttl: ${TEMPLATE_JWT_ACCESS_TOKEN_TTL:PT15M}
-    refresh-token-ttl: ${TEMPLATE_JWT_REFRESH_TOKEN_TTL:P30D}
-    secret: ${TEMPLATE_JWT_SECRET:replace-me-local}

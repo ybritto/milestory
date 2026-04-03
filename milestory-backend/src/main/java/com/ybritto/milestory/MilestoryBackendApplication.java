@@ -1,13 +1,13 @@
-package com.ybritto.template;
+package com.ybritto.milestory;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class TemplateBackendApplication {
+public class MilestoryBackendApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(TemplateBackendApplication.class, args);
+		SpringApplication.run(MilestoryBackendApplication.class, args);
 	}
 
 }
