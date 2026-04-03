@@ -1,0 +1,74 @@
+<main class="home-page">
+  <section class="hero" aria-labelledby="home-title">
+    <header class="hero__copy">
+      <p class="hero__eyebrow">Foundation ready</p>
+      <h1 id="home-title">Milestory</h1>
+      <p class="hero__summary">
+        Turn ambitious yearly goals into a plan you can see, follow, and keep moving forward.
+      </p>
+      <button type="button" class="hero__cta" (click)="refreshStatus()">Refresh status</button>
+    </header>
+
+    <section class="status-card" aria-labelledby="status-title">
+      <div class="status-card__header">
+        <p class="status-card__eyebrow">Backend-owned status</p>
+        <h2 id="status-title">Foundation status</h2>
+      </div>
+
+      @switch (viewState().kind) {
+        @case ('loading') {
+          <div class="status-card__loading" aria-live="polite">
+            <span class="skeleton skeleton--headline"></span>
+            <span class="skeleton skeleton--line"></span>
+            <span class="skeleton skeleton--line"></span>
+            <span class="skeleton skeleton--line skeleton--short"></span>
+          </div>
+        }
+
+        @case ('ready') {
+          <div class="status-card__body" aria-live="polite">
+            <p class="status-pill">Ready</p>
+            <p class="status-card__headline">{{ readyPayload()?.headline }}</p>
+            <p class="status-card__summary">{{ readyPayload()?.summary }}</p>
+            <ul class="status-card__facts">
+              @for (fact of facts(); track fact) {
+                <li>{{ fact }}</li>
+              }
+            </ul>
+          </div>
+        }
+
+        @case ('empty') {
+          <div class="status-card__body" aria-live="polite">
+            <p class="status-pill status-pill--neutral">Empty</p>
+            <p class="status-card__headline">Foundation is in place</p>
+            <p class="status-card__summary">
+              Milestory is running, but there are no extra system details to show yet. Continue
+              with setup and check back after the next backend update.
+            </p>
+          </div>
+        }
+
+        @case ('error') {
+          <div class="status-card__body" aria-live="assertive">
+            <p class="status-pill status-pill--error">Error</p>
+            <p class="status-card__headline">Status unavailable</p>
+            <p class="status-card__summary">{{ errorMessage() }}</p>
+            <button type="button" class="status-card__retry" (click)="refreshStatus()">
+              Refresh status
+            </button>
+          </div>
+        }
+      }
+    </section>
+  </section>
+
+  <section class="build-notes" aria-labelledby="build-notes-title">
+    <h2 id="build-notes-title">What ships now, and what follows next</h2>
+    <ul>
+      <li>Milestory already reports backend and database foundation details from the live API.</li>
+      <li>Goal planning arrives in the next phase, with editable checkpoints built on this base.</li>
+      <li>Deeper dashboards follow once progress tracking and status calculations are in place.</li>
+    </ul>
+  </section>
+</main>
