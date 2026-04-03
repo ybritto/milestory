@@ -48,13 +48,13 @@ The local database service in `compose.yaml` is the expected Phase 1 development
 Run the backend from the repository root:
 
 ```bash
-./mvnw -q -pl milestory-backend spring-boot:run
+mvn -q -pl milestory-backend spring-boot:run
 ```
 
 Run backend tests as needed:
 
 ```bash
-./mvnw -q -pl milestory-backend test
+mvn -q -pl milestory-backend test
 ```
 
 ### Frontend

@@ -15,6 +15,8 @@ Milestory must make yearly goals feel concrete, measurable, and motivating by sh
 - ✓ Contract-first multi-module project structure exists across API, backend, and frontend modules — existing
 - ✓ Spring Boot, PostgreSQL, Liquibase, and Angular scaffolding are already wired into the repository — existing
 - ✓ Shared API-driven generation flow exists for backend interfaces and frontend client code — existing
+- ✓ User can use the first release in personal single-user mode without authentication — validated in Phase 1: Foundation And Personal Mode
+- ✓ Backend-owned domain logic now drives the Phase 1 foundation status flow across the API, backend, and frontend shell — validated in Phase 1: Foundation And Personal Mode
 
 ### Active
 
@@ -34,7 +36,7 @@ Milestory must make yearly goals feel concrete, measurable, and motivating by sh
 
 ## Context
 
-Milestory starts from a scaffolded brownfield repository rather than a feature-complete application. The project already uses Java 25, Spring Boot 4, Angular 21, OpenAPI 3.1.2, Lombok, PostgreSQL, Liquibase, and Docker Compose. The repo structure is clean, but the backend is still mostly bootstrap-only, the frontend is still starter content, and Liquibase points to a missing changelog tree. UX excellence and technical architecture are explicit project drivers, and the intended engineering style is DDD, hexagonal architecture, backend-owned business logic, and TDD.
+Milestory starts from a scaffolded brownfield repository rather than a feature-complete application. The project already uses Java 25, Spring Boot 4, Angular 21, OpenAPI 3.1.2, Lombok, PostgreSQL, Liquibase, and Docker Compose. Phase 1 has now replaced the bootstrap-only backend and starter frontend with a real auth-free status foundation, a working Liquibase baseline, and an initial DDD/hexagonal backend seam. UX excellence and technical architecture remain explicit project drivers, and the intended engineering style is DDD, hexagonal architecture, backend-owned business logic, and TDD.
 
 The first release should optimize for personal usefulness instead of broad market scope. That means the roadmap should prioritize goal definition, checkpoint planning, progress calculations, dashboards, and motivational feedback before identity, collaboration, or platform expansion. The repo also still contains some template-era documentation and metadata that should be cleaned as the real product shape solidifies.
 
@@ -74,4 +76,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-04-03 after initialization*
+*Last updated: 2026-04-04 after Phase 1 completion*

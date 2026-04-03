@@ -1,7 +1,7 @@
 ---
 phase: 01-foundation-and-personal-mode
-verified: 2026-04-03T22:42:35Z
-status: human_needed
+verified: 2026-04-04T00:00:00Z
+status: passed
 score: 6/6 must-haves verified
 human_verification:
   - test: "Run the backend and frontend together, then load `/` in the browser"
@@ -15,9 +15,9 @@ human_verification:
 # Phase 1: Foundation And Personal Mode Verification Report
 
 **Phase Goal:** Replace scaffold gaps with a real application skeleton that supports personal auth-free use, backend-owned domain logic, and future DDD/hexagonal growth.
-**Verified:** 2026-04-03T22:42:35Z
-**Status:** human_needed
-**Re-verification:** No - initial verification
+**Verified:** 2026-04-04T00:00:00Z
+**Status:** passed
+**Re-verification:** Yes - user approved remaining human verification items
 
 ## Goal Achievement
 
@@ -76,30 +76,29 @@ No orphaned Phase 1 requirements were found in `.planning/REQUIREMENTS.md`; the 
 
 ### Anti-Patterns Found
 
-| File | Line | Pattern | Severity | Impact |
-| --- | --- | --- | --- | --- |
-| `README.md` | 51 | Stale backend command uses missing `./mvnw` wrapper | ⚠️ Warning | Repo-facing setup docs are mostly correct, but the documented backend run/test commands do not match the current workspace layout, which can mislead a fresh verifier or contributor. |
-| `README.md` | 57 | Stale backend command uses missing `./mvnw` wrapper | ⚠️ Warning | Same issue for the backend test command. The backend itself verifies with `mvn -q -pl milestory-backend ...`, but the README should be corrected in a follow-up. |
+No blocking anti-patterns remain. The earlier README command drift was corrected on 2026-04-04 by replacing `./mvnw` references with `mvn`.
 
-### Human Verification Required
+### Human Verification
 
 ### 1. Browser Home Screen
 
 **Test:** Run the backend and frontend together, then load `/` in a browser.
 **Expected:** The page shows the Milestory three-zone layout, readable typography, and a status card that moves out of loading based on the live backend response.
 **Why human:** Layout quality, responsive behavior, and polished visual presentation are not provable from source inspection or unit tests.
+**Result:** Approved by user on 2026-04-04.
 
 ### 2. Refresh and Failure Recovery
 
 **Test:** Click `Refresh status` with the backend available, then repeat with the backend stopped or unreachable.
 **Expected:** The ready/empty state refreshes from live backend data when available; when unavailable, the error state appears with a readable retry path and recovers after the backend returns.
 **Why human:** This requires real browser interaction and live service failure/recovery, which the current automated checks do not simulate end-to-end.
+**Result:** Approved by user on 2026-04-04.
 
 ### Gaps Summary
 
-No implementation gaps blocking the Phase 1 goal were found in code or targeted tests. The only concrete issue discovered is documentation drift in [`README.md`](/Users/ybritto/dev/Personal/Milestory/README.md#L51), where backend commands still reference a non-existent Maven wrapper. Because the remaining open questions are visual and end-to-end runtime checks, this verification is classified as `human_needed` rather than `gaps_found`.
+No implementation gaps blocking the Phase 1 goal were found in code or targeted tests. The README command drift noted during the initial verification has since been corrected, and the remaining human verification items were approved by the user. Phase 1 therefore closes as `passed` rather than `human_needed`.
 
 ---
 
-_Verified: 2026-04-03T22:42:35Z_  
+_Verified: 2026-04-04T00:00:00Z_  
 _Verifier: Claude (gsd-verifier)_
