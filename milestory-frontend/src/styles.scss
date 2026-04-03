@@ -1,1 +1,54 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Manrope:wght@400;600&display=swap');
+
+:root {
+  --color-bg: #f6f1e7;
+  --color-surface: #e6ddcf;
+  --color-accent: #1f6b5c;
+  --color-destructive: #b64735;
+  --color-ink: #1f1a17;
+  --color-muted: #5f554c;
+  --color-border: #d3c6b4;
+  --color-surface-strong: #efe7da;
+  --shadow-soft: 0 22px 60px rgb(76 61 45 / 0.12);
+  --radius-card: 28px;
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+  --space-3xl: 64px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  background:
+    radial-gradient(circle at top left, rgb(255 255 255 / 0.65), transparent 32%),
+    linear-gradient(180deg, #fbf7f0 0%, var(--color-bg) 100%);
+  color: var(--color-ink);
+  font-family: 'Manrope', sans-serif;
+  line-height: 1.5;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100dvh;
+  color: var(--color-ink);
+}
+
+button,
+a {
+  font: inherit;
+}
+
+button:focus-visible,
+a:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 3px;
+}
