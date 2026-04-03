@@ -26,7 +26,7 @@
 **Plans:** 3 plans
 
 Plans:
-- [ ] 01-01-PLAN.md — Clean the auth-free contract and Phase 1 product-facing repo metadata
+- [x] 01-01-PLAN.md — Clean the auth-free contract and Phase 1 product-facing repo metadata
 - [ ] 01-02-PLAN.md — Add the Liquibase baseline, backend boundaries, and anonymous status endpoint
 - [ ] 01-03-PLAN.md — Build the branded Milestory home screen on the backend-owned status API
 
