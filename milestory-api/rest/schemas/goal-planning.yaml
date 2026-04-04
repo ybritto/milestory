@@ -1,0 +1,309 @@
+GoalCategoryResponse:
+  type: object
+  required:
+    - categoryId
+    - key
+    - displayName
+    - systemDefined
+  properties:
+    categoryId:
+      type: string
+      format: uuid
+    key:
+      type: string
+      example: financial
+    displayName:
+      type: string
+      example: Financial
+    systemDefined:
+      type: boolean
+      example: true
+
+CreateGoalCategoryRequest:
+  type: object
+  required:
+    - displayName
+  properties:
+    displayName:
+      type: string
+      example: Creative Practice
+
+GoalDraftRequest:
+  type: object
+  required:
+    - title
+    - categoryId
+    - targetValue
+    - unit
+    - motivation
+    - notes
+  properties:
+    title:
+      type: string
+      example: Read 24 books
+    categoryId:
+      type: string
+      format: uuid
+    targetValue:
+      type: number
+      format: double
+      example: 24
+    unit:
+      type: string
+      example: books
+    motivation:
+      type: string
+      example: Build a steadier reading practice.
+    notes:
+      type: string
+      example: Focus on long-form non-fiction and two novels each quarter.
+
+GoalPlanPreviewRequest:
+  allOf:
+    - $ref: '#/GoalDraftRequest'
+  description: Goal draft details used to generate a suggested yearly checkpoint plan.
+
+GoalPlanPreviewResponse:
+  type: object
+  required:
+    - year
+    - planningYear
+    - title
+    - categoryId
+    - targetValue
+    - unit
+    - motivation
+    - notes
+    - suggestionBasis
+    - customizedFromSuggestion
+    - plannedPathSummary
+    - checkpoints
+  properties:
+    year:
+      type: integer
+      format: int32
+      example: 2026
+    planningYear:
+      type: integer
+      format: int32
+      example: 2026
+    title:
+      type: string
+    categoryId:
+      type: string
+      format: uuid
+    targetValue:
+      type: number
+      format: double
+    unit:
+      type: string
+    motivation:
+      type: string
+    notes:
+      type: string
+    suggestionBasis:
+      type: string
+      enum:
+        - CATEGORY_AWARE
+        - GENERIC_FALLBACK
+    customizedFromSuggestion:
+      type: boolean
+    plannedPathSummary:
+      type: string
+      example: Even monthly milestones from January through December.
+    checkpoints:
+      type: array
+      items:
+        $ref: '#/GoalCheckpointResponse'
+
+CreateGoalRequest:
+  type: object
+  required:
+    - title
+    - categoryId
+    - targetValue
+    - unit
+    - motivation
+    - notes
+    - suggestionBasis
+    - customizedFromSuggestion
+    - checkpoints
+  properties:
+    title:
+      type: string
+    categoryId:
+      type: string
+      format: uuid
+    targetValue:
+      type: number
+      format: double
+    unit:
+      type: string
+    motivation:
+      type: string
+    notes:
+      type: string
+    suggestionBasis:
+      type: string
+      enum:
+        - CATEGORY_AWARE
+        - GENERIC_FALLBACK
+    customizedFromSuggestion:
+      type: boolean
+    checkpoints:
+      type: array
+      items:
+        $ref: '#/GoalCheckpointRequest'
+
+UpdateGoalRequest:
+  allOf:
+    - $ref: '#/CreateGoalRequest'
+
+GoalResponse:
+  type: object
+  required:
+    - goalId
+    - planningYear
+    - title
+    - categoryId
+    - targetValue
+    - unit
+    - motivation
+    - notes
+    - status
+    - suggestionBasis
+    - customizedFromSuggestion
+    - plannedPathSummary
+    - checkpoints
+  properties:
+    goalId:
+      type: string
+      format: uuid
+    planningYear:
+      type: integer
+      format: int32
+    title:
+      type: string
+    categoryId:
+      type: string
+      format: uuid
+    targetValue:
+      type: number
+      format: double
+    unit:
+      type: string
+    motivation:
+      type: string
+    notes:
+      type: string
+    status:
+      type: string
+      enum:
+        - ACTIVE
+        - ARCHIVED
+    suggestionBasis:
+      type: string
+      enum:
+        - CATEGORY_AWARE
+        - GENERIC_FALLBACK
+    customizedFromSuggestion:
+      type: boolean
+    plannedPathSummary:
+      type: string
+    archivedAt:
+      type: string
+      format: date-time
+    checkpoints:
+      type: array
+      items:
+        $ref: '#/GoalCheckpointResponse'
+
+GoalCheckpointRequest:
+  type: object
+  required:
+    - checkpointDate
+    - targetValue
+    - note
+    - origin
+  properties:
+    checkpointDate:
+      type: string
+      format: date
+    targetValue:
+      type: number
+      format: double
+    note:
+      type: string
+      example: Keep pace steady through summer.
+    origin:
+      type: string
+      enum:
+        - SUGGESTED
+        - USER_EDITED
+        - USER_ADDED
+
+GoalCheckpointResponse:
+  type: object
+  required:
+    - checkpointId
+    - sequenceNumber
+    - checkpointDate
+    - targetValue
+    - note
+    - origin
+  properties:
+    checkpointId:
+      type: string
+      format: uuid
+    sequenceNumber:
+      type: integer
+      format: int32
+    checkpointDate:
+      type: string
+      format: date
+    targetValue:
+      type: number
+      format: double
+    note:
+      type: string
+    origin:
+      type: string
+      enum:
+        - SUGGESTED
+        - USER_EDITED
+        - USER_ADDED
+    originalCheckpointDate:
+      type: string
+      format: date
+    originalTargetValue:
+      type: number
+      format: double
+
+ArchiveGoalResponse:
+  type: object
+  required:
+    - goalId
+    - status
+    - archivedAt
+  properties:
+    goalId:
+      type: string
+      format: uuid
+    status:
+      type: string
+      enum:
+        - ARCHIVED
+    archivedAt:
+      type: string
+      format: date-time
+
+RestoreGoalRequest:
+  type: object
+  required:
+    - mode
+  properties:
+    mode:
+      type: string
+      enum:
+        - KEEP_EXISTING
+        - REGENERATE

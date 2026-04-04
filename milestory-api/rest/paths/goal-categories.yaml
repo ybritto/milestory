@@ -1,0 +1,34 @@
+get:
+  tags:
+    - goal-categories
+  operationId: listGoalCategories
+  summary: List goal categories
+  description: Returns the starter and custom goal categories available for planning yearly goals.
+  responses:
+    '200':
+      description: Goal categories available for planning.
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '../schemas/goal-planning.yaml#/GoalCategoryResponse'
+post:
+  tags:
+    - goal-categories
+  operationId: createGoalCategory
+  summary: Create a custom goal category
+  description: Creates a custom goal category that can be reused in later goal plans.
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: '../schemas/goal-planning.yaml#/CreateGoalCategoryRequest'
+  responses:
+    '201':
+      description: Goal category created.
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/goal-planning.yaml#/GoalCategoryResponse'

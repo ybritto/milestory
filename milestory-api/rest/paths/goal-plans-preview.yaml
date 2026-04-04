@@ -1,0 +1,19 @@
+post:
+  tags:
+    - goal-planning
+  operationId: previewGoalPlan
+  summary: Preview a yearly goal plan
+  description: Suggests a backend-owned checkpoint plan for the current planning year before the goal is saved.
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: '../schemas/goal-planning.yaml#/GoalPlanPreviewRequest'
+  responses:
+    '200':
+      description: Goal plan preview generated.
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/goal-planning.yaml#/GoalPlanPreviewResponse'

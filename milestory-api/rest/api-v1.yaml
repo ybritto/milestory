@@ -11,3 +11,15 @@ servers:
 paths:
   /api/v1/status:
     $ref: './paths/status.yaml'
+  /api/v1/goal-categories:
+    $ref: './paths/goal-categories.yaml'
+  /api/v1/goal-plans/previews:
+    $ref: './paths/goal-plans-preview.yaml'
+  /api/v1/goals:
+    $ref: './paths/goals.yaml'
+  /api/v1/goals/{goalId}:
+    $ref: './paths/goal-by-id.yaml#/GoalByIdPath'
+  /api/v1/goals/{goalId}/archive:
+    $ref: './paths/goal-by-id.yaml#/GoalArchivePath'
+  /api/v1/goals/{goalId}/restore:
+    $ref: './paths/goal-by-id.yaml#/GoalRestorePath'

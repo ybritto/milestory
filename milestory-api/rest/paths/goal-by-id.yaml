@@ -1,0 +1,86 @@
+GoalByIdPath:
+  get:
+    tags:
+      - goals
+    operationId: getGoal
+    summary: Get goal detail
+    description: Returns the saved goal details, checkpoint plan, and planned-path summary.
+    parameters:
+      - $ref: '#/GoalIdParameter'
+    responses:
+      '200':
+        description: Goal detail returned.
+        content:
+          application/json:
+            schema:
+              $ref: '../schemas/goal-planning.yaml#/GoalResponse'
+  put:
+    tags:
+      - goals
+    operationId: updateGoal
+    summary: Update goal details and plan
+    description: Replaces the goal details and checkpoint plan while the goal is still active.
+    parameters:
+      - $ref: '#/GoalIdParameter'
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/goal-planning.yaml#/UpdateGoalRequest'
+    responses:
+      '200':
+        description: Goal updated.
+        content:
+          application/json:
+            schema:
+              $ref: '../schemas/goal-planning.yaml#/GoalResponse'
+
+GoalArchivePath:
+  post:
+    tags:
+      - goals
+    operationId: archiveGoal
+    summary: Archive a goal
+    description: Archives a goal so it becomes read-only and leaves active views.
+    parameters:
+      - $ref: '#/GoalIdParameter'
+    responses:
+      '200':
+        description: Goal archived.
+        content:
+          application/json:
+            schema:
+              $ref: '../schemas/goal-planning.yaml#/ArchiveGoalResponse'
+
+GoalRestorePath:
+  post:
+    tags:
+      - goals
+    operationId: restoreGoal
+    summary: Restore an archived goal
+    description: Restores an archived goal either with the saved checkpoints or with regenerated monthly suggestions.
+    parameters:
+      - $ref: '#/GoalIdParameter'
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/goal-planning.yaml#/RestoreGoalRequest'
+    responses:
+      '200':
+        description: Goal restored.
+        content:
+          application/json:
+            schema:
+              $ref: '../schemas/goal-planning.yaml#/GoalResponse'
+
+GoalIdParameter:
+  name: goalId
+  in: path
+  required: true
+  description: Goal identifier.
+  schema:
+    type: string
+    format: uuid

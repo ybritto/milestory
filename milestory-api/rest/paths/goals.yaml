@@ -1,0 +1,44 @@
+get:
+  tags:
+    - goals
+  operationId: listGoals
+  summary: List yearly goals
+  description: Returns saved yearly goals and optionally filters by lifecycle status.
+  parameters:
+    - name: status
+      in: query
+      required: false
+      schema:
+        type: string
+        enum:
+          - ACTIVE
+          - ARCHIVED
+      description: Filters active or archived goals.
+  responses:
+    '200':
+      description: Matching goals returned.
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '../schemas/goal-planning.yaml#/GoalResponse'
+post:
+  tags:
+    - goals
+  operationId: createGoal
+  summary: Create a yearly goal
+  description: Persists a finalized yearly goal and its reviewed checkpoint plan.
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: '../schemas/goal-planning.yaml#/CreateGoalRequest'
+  responses:
+    '201':
+      description: Goal created.
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/goal-planning.yaml#/GoalResponse'
