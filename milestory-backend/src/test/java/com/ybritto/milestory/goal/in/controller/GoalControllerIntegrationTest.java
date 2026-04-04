@@ -16,6 +16,7 @@ import com.ybritto.milestory.goal.application.usecase.GetGoalDetailUseCase;
 import com.ybritto.milestory.goal.application.usecase.ListGoalCategoriesUseCase;
 import com.ybritto.milestory.goal.application.usecase.ListGoalsUseCase;
 import com.ybritto.milestory.goal.application.usecase.PreviewGoalPlanUseCase;
+import com.ybritto.milestory.goal.application.usecase.RecordProgressEntryUseCase;
 import com.ybritto.milestory.goal.application.usecase.RestoreGoalUseCase;
 import com.ybritto.milestory.goal.application.usecase.UpdateGoalUseCase;
 import com.ybritto.milestory.goal.domain.GoalCheckpoint;
@@ -35,12 +36,14 @@ class GoalControllerIntegrationTest {
     private static final String READING_CATEGORY_ID_JSON = "\"" + READING_CATEGORY_ID + "\"";
     private GoalTestSupport.InMemoryGoalCategoryPersistencePort categoryPort;
     private GoalTestSupport.InMemoryGoalPersistencePort goalPort;
+    private GoalTestSupport.InMemoryGoalProgressEntryPersistencePort progressEntryPort;
     private MockMvc mockMvc;
 
     @BeforeEach
     void setUp() {
         this.categoryPort = new GoalTestSupport.InMemoryGoalCategoryPersistencePort();
         this.goalPort = new GoalTestSupport.InMemoryGoalPersistencePort();
+        this.progressEntryPort = new GoalTestSupport.InMemoryGoalProgressEntryPersistencePort();
 
         PreviewGoalPlanUseCase previewGoalPlanUseCase = new PreviewGoalPlanUseCase(categoryPort, GoalTestSupport.FIXED_CLOCK);
         ListGoalCategoriesUseCase listGoalCategoriesUseCase = new ListGoalCategoriesUseCase(categoryPort);
@@ -49,6 +52,11 @@ class GoalControllerIntegrationTest {
         GetGoalDetailUseCase getGoalDetailUseCase = new GetGoalDetailUseCase(goalPort);
         ListGoalsUseCase listGoalsUseCase = new ListGoalsUseCase(goalPort);
         UpdateGoalUseCase updateGoalUseCase = new UpdateGoalUseCase(goalPort, categoryPort, GoalTestSupport.FIXED_CLOCK);
+        RecordProgressEntryUseCase recordProgressEntryUseCase = new RecordProgressEntryUseCase(
+                goalPort,
+                progressEntryPort,
+                GoalTestSupport.FIXED_CLOCK
+        );
         ArchiveGoalUseCase archiveGoalUseCase = new ArchiveGoalUseCase(goalPort, GoalTestSupport.FIXED_CLOCK);
         RestoreGoalUseCase restoreGoalUseCase = new RestoreGoalUseCase(
                 goalPort,
@@ -65,6 +73,7 @@ class GoalControllerIntegrationTest {
                 getGoalDetailUseCase,
                 listGoalsUseCase,
                 updateGoalUseCase,
+                recordProgressEntryUseCase,
                 archiveGoalUseCase,
                 restoreGoalUseCase,
                 Mappers.getMapper(GoalRequestMapper.class),
@@ -170,6 +179,59 @@ class GoalControllerIntegrationTest {
         mockMvc.perform(get("/api/v1/goals/{goalId}", goalId))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.status", is("ACTIVE")));
+    }
+
+    @Test
+    void recordsProgressEntriesClassifiesCorrectionsAndBlocksArchivedWrites() throws Exception {
+        previewGoalPlan();
+        mockMvc.perform(post("/api/v1/goals")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(createGoalRequestJson("Read 24 books", BigDecimal.valueOf(24))))
+                .andExpect(status().isCreated());
+
+        UUID goalId = goalPort.goals().keySet().iterator().next();
+
+        mockMvc.perform(post("/api/v1/goals/{goalId}/progress-entries", goalId)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                  "entryDate": "2026-03-10",
+                                  "progressValue": 8,
+                                  "note": "Finished a strong month"
+                                }
+                                """))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.progressEntryId", notNullValue()))
+                .andExpect(jsonPath("$.entryDate", is("2026-03-10")))
+                .andExpect(jsonPath("$.progressValue", is(8.0)))
+                .andExpect(jsonPath("$.entryType", is("NORMAL")))
+                .andExpect(jsonPath("$.recordedAt", notNullValue()));
+
+        mockMvc.perform(post("/api/v1/goals/{goalId}/progress-entries", goalId)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                  "entryDate": "2026-04-04",
+                                  "progressValue": 6,
+                                  "note": "Corrected an overcount"
+                                }
+                                """))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.entryType", is("CORRECTION")));
+
+        mockMvc.perform(post("/api/v1/goals/{goalId}/archive", goalId))
+                .andExpect(status().isOk());
+
+        mockMvc.perform(post("/api/v1/goals/{goalId}/progress-entries", goalId)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                  "entryDate": "2026-04-05",
+                                  "progressValue": 9,
+                                  "note": "Should be rejected"
+                                }
+                                """))
+                .andExpect(status().isConflict());
     }
 
     private void previewGoalPlan() throws Exception {

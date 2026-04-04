@@ -2,6 +2,7 @@ package com.ybritto.milestory.goal.out.adapter;
 
 import com.ybritto.milestory.goal.application.port.out.GoalCategoryPersistencePort;
 import com.ybritto.milestory.goal.application.port.out.GoalPersistencePort;
+import com.ybritto.milestory.goal.application.port.out.GoalProgressEntryPersistencePort;
 import com.ybritto.milestory.goal.application.usecase.ArchiveGoalUseCase;
 import com.ybritto.milestory.goal.application.usecase.CreateCustomGoalCategoryUseCase;
 import com.ybritto.milestory.goal.application.usecase.CreateGoalUseCase;
@@ -9,6 +10,7 @@ import com.ybritto.milestory.goal.application.usecase.GetGoalDetailUseCase;
 import com.ybritto.milestory.goal.application.usecase.ListGoalCategoriesUseCase;
 import com.ybritto.milestory.goal.application.usecase.ListGoalsUseCase;
 import com.ybritto.milestory.goal.application.usecase.PreviewGoalPlanUseCase;
+import com.ybritto.milestory.goal.application.usecase.RecordProgressEntryUseCase;
 import com.ybritto.milestory.goal.application.usecase.RestoreGoalUseCase;
 import com.ybritto.milestory.goal.application.usecase.UpdateGoalUseCase;
 import java.time.Clock;
@@ -67,6 +69,15 @@ public class GoalConfiguration {
     @Bean
     ListGoalsUseCase listGoalsUseCase(GoalPersistencePort goalPersistencePort) {
         return new ListGoalsUseCase(goalPersistencePort);
+    }
+
+    @Bean
+    RecordProgressEntryUseCase recordProgressEntryUseCase(
+            GoalPersistencePort goalPersistencePort,
+            GoalProgressEntryPersistencePort goalProgressEntryPersistencePort,
+            Clock goalClock
+    ) {
+        return new RecordProgressEntryUseCase(goalPersistencePort, goalProgressEntryPersistencePort, goalClock);
     }
 
     @Bean

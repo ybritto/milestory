@@ -7,6 +7,7 @@ import com.ybritto.milestory.goal.application.usecase.GetGoalDetailUseCase;
 import com.ybritto.milestory.goal.application.usecase.ListGoalCategoriesUseCase;
 import com.ybritto.milestory.goal.application.usecase.ListGoalsUseCase;
 import com.ybritto.milestory.goal.application.usecase.PreviewGoalPlanUseCase;
+import com.ybritto.milestory.goal.application.usecase.RecordProgressEntryUseCase;
 import com.ybritto.milestory.goal.application.usecase.RestoreGoalUseCase;
 import com.ybritto.milestory.goal.application.usecase.UpdateGoalUseCase;
 import com.ybritto.milestory.generated.api.GoalCategoriesApi;
@@ -40,6 +41,7 @@ public class GoalController implements GoalCategoriesApi, GoalPlanningApi, Goals
     private final GetGoalDetailUseCase getGoalDetailUseCase;
     private final ListGoalsUseCase listGoalsUseCase;
     private final UpdateGoalUseCase updateGoalUseCase;
+    private final RecordProgressEntryUseCase recordProgressEntryUseCase;
     private final ArchiveGoalUseCase archiveGoalUseCase;
     private final RestoreGoalUseCase restoreGoalUseCase;
     private final GoalRequestMapper goalRequestMapper;
@@ -93,7 +95,11 @@ public class GoalController implements GoalCategoriesApi, GoalPlanningApi, Goals
             String goalId,
             RecordGoalProgressEntryRequest body
     ) {
-        return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(goalResponseMapper.mapProgressEntry(recordProgressEntryUseCase.record(
+                        goalRequestMapper.toUuid(goalId),
+                        goalRequestMapper.toRecordProgressEntryCommand(body)
+                )));
     }
 
     @Override

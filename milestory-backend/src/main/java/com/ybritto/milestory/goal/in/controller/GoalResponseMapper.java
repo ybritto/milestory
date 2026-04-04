@@ -4,6 +4,7 @@ import com.ybritto.milestory.goal.application.model.GoalCategory;
 import com.ybritto.milestory.goal.application.model.GoalPlanPreview;
 import com.ybritto.milestory.goal.domain.Goal;
 import com.ybritto.milestory.goal.domain.GoalCheckpoint;
+import com.ybritto.milestory.goal.domain.GoalProgressEntry;
 import com.ybritto.milestory.goal.domain.GoalStatus;
 import com.ybritto.milestory.generated.model.ArchiveGoalResponse;
 import com.ybritto.milestory.generated.model.ArchiveGoalResponseStatus;
@@ -12,6 +13,8 @@ import com.ybritto.milestory.generated.model.GoalCheckpointResponse;
 import com.ybritto.milestory.generated.model.GoalCheckpointResponseOrigin;
 import com.ybritto.milestory.generated.model.GoalPlanPreviewResponse;
 import com.ybritto.milestory.generated.model.GoalPlanPreviewResponseSuggestionBasis;
+import com.ybritto.milestory.generated.model.GoalProgressEntryResponse;
+import com.ybritto.milestory.generated.model.GoalProgressEntryResponseEntryType;
 import com.ybritto.milestory.generated.model.GoalResponse;
 import com.ybritto.milestory.generated.model.GoalResponseStatus;
 import com.ybritto.milestory.generated.model.GoalResponseSuggestionBasis;
@@ -68,6 +71,17 @@ public interface GoalResponseMapper {
     @Mapping(target = "originalCheckpointDate", expression = "java(checkpoint.originalCheckpointDate())")
     @Mapping(target = "originalTargetValue", expression = "java(toDouble(checkpoint.originalTargetValue()))")
     GoalCheckpointResponse mapCheckpoint(GoalCheckpoint checkpoint);
+
+    default GoalProgressEntryResponse mapProgressEntry(GoalProgressEntry entry) {
+        return new GoalProgressEntryResponse(
+                entry.progressEntryId().toString(),
+                entry.entryDate(),
+                toDouble(entry.progressValue()),
+                entry.note(),
+                GoalProgressEntryResponseEntryType.valueOf(entry.entryType().name()),
+                toOffsetDateTime(entry.recordedAt())
+        );
+    }
 
     default GoalCategoryResponse mapCategory(GoalCategory category) {
         return new GoalCategoryResponse(

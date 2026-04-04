@@ -3,9 +3,11 @@ package com.ybritto.milestory.goal.out.adapter;
 import com.ybritto.milestory.goal.application.model.GoalCategory;
 import com.ybritto.milestory.goal.application.port.out.GoalCategoryPersistencePort;
 import com.ybritto.milestory.goal.application.port.out.GoalPersistencePort;
+import com.ybritto.milestory.goal.application.port.out.GoalProgressEntryPersistencePort;
 import com.ybritto.milestory.goal.application.usecase.GoalCategoryNotFoundException;
 import com.ybritto.milestory.goal.domain.Goal;
 import com.ybritto.milestory.goal.domain.GoalCheckpoint;
+import com.ybritto.milestory.goal.domain.GoalProgressEntry;
 import com.ybritto.milestory.goal.domain.GoalStatus;
 import java.time.Clock;
 import java.time.Instant;
@@ -21,12 +23,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-public class GoalPersistenceAdapter implements GoalPersistencePort, GoalCategoryPersistencePort {
+public class GoalPersistenceAdapter implements GoalPersistencePort, GoalCategoryPersistencePort, GoalProgressEntryPersistencePort {
 
     private static final String CUSTOM_CATEGORY_PREFIX = "custom-";
 
     private final GoalJpaRepository goalJpaRepository;
     private final GoalCategoryJpaRepository goalCategoryJpaRepository;
+    private final GoalProgressEntryJpaRepository goalProgressEntryJpaRepository;
     private final Clock goalClock;
 
     @Override
@@ -112,6 +115,28 @@ public class GoalPersistenceAdapter implements GoalPersistencePort, GoalCategory
         return toGoalCategory(goalCategoryJpaRepository.save(entity));
     }
 
+    @Override
+    @Transactional
+    public GoalProgressEntry save(GoalProgressEntry entry) {
+        GoalProgressEntryJpaEntity entity = new GoalProgressEntryJpaEntity();
+        entity.setProgressEntryId(entry.progressEntryId());
+        entity.setGoal(goalJpaRepository.getReferenceById(entry.goalId()));
+        entity.setEntryDate(entry.entryDate());
+        entity.setProgressValue(entry.progressValue());
+        entity.setNote(entry.note());
+        entity.setEntryType(entry.entryType());
+        entity.setRecordedAt(entry.recordedAt());
+        return toGoalProgressEntry(goalProgressEntryJpaRepository.save(entity));
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<GoalProgressEntry> findByGoalId(UUID goalId) {
+        return goalProgressEntryJpaRepository.findAllByGoalGoalIdOrderByEntryDateAscRecordedAtAsc(goalId).stream()
+                .map(this::toGoalProgressEntry)
+                .toList();
+    }
+
     private Goal toGoal(GoalJpaEntity entity) {
         List<GoalCheckpoint> checkpoints = new ArrayList<>();
         for (GoalCheckpointJpaEntity checkpointEntity : entity.getCheckpoints()) {
@@ -152,6 +177,18 @@ public class GoalPersistenceAdapter implements GoalPersistencePort, GoalCategory
                 entity.getKey(),
                 entity.getDisplayName(),
                 entity.isSystemDefined()
+        );
+    }
+
+    private GoalProgressEntry toGoalProgressEntry(GoalProgressEntryJpaEntity entity) {
+        return GoalProgressEntry.record(
+                entity.getProgressEntryId(),
+                entity.getGoal().getGoalId(),
+                entity.getEntryDate(),
+                entity.getProgressValue(),
+                entity.getNote(),
+                entity.getEntryType(),
+                entity.getRecordedAt()
         );
     }
 

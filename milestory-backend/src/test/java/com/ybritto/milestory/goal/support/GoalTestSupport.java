@@ -3,8 +3,10 @@ package com.ybritto.milestory.goal.support;
 import com.ybritto.milestory.goal.application.model.GoalCategory;
 import com.ybritto.milestory.goal.application.port.out.GoalCategoryPersistencePort;
 import com.ybritto.milestory.goal.application.port.out.GoalPersistencePort;
+import com.ybritto.milestory.goal.application.port.out.GoalProgressEntryPersistencePort;
 import com.ybritto.milestory.goal.domain.Goal;
 import com.ybritto.milestory.goal.domain.GoalCheckpoint;
+import com.ybritto.milestory.goal.domain.GoalProgressEntry;
 import com.ybritto.milestory.goal.domain.GoalStatus;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -227,6 +229,29 @@ public final class GoalTestSupport {
 
         public Map<UUID, Goal> goals() {
             return goals;
+        }
+    }
+
+    public static class InMemoryGoalProgressEntryPersistencePort implements GoalProgressEntryPersistencePort {
+
+        private final List<GoalProgressEntry> entries = new ArrayList<>();
+
+        @Override
+        public GoalProgressEntry save(GoalProgressEntry entry) {
+            entries.add(entry);
+            return entry;
+        }
+
+        @Override
+        public List<GoalProgressEntry> findByGoalId(UUID goalId) {
+            return entries.stream()
+                    .filter(entry -> entry.goalId().equals(goalId))
+                    .sorted(Comparator.comparing(GoalProgressEntry::entryDate).thenComparing(GoalProgressEntry::recordedAt))
+                    .toList();
+        }
+
+        public Optional<GoalProgressEntry> findLatestByGoalId(UUID goalId) {
+            return findByGoalId(goalId).stream().reduce((first, second) -> second);
         }
     }
 }

@@ -3,3 +3,5 @@ databaseChangeLog:
       file: db/changelog/changes/001-foundation-baseline.yaml
   - include:
       file: db/changelog/changes/002-goal-planning-foundation.yaml
+  - include:
+      file: db/changelog/changes/003-goal-progress-engine.yaml

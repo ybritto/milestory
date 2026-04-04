@@ -73,4 +73,8 @@ public class GoalJpaEntity {
     @OneToMany(mappedBy = "goal", orphanRemoval = true, cascade = jakarta.persistence.CascadeType.ALL)
     @OrderBy("sequenceNumber ASC")
     private List<GoalCheckpointJpaEntity> checkpoints = new ArrayList<>();
+
+    @OneToMany(mappedBy = "goal")
+    @OrderBy("entryDate ASC, recordedAt ASC")
+    private List<GoalProgressEntryJpaEntity> progressEntries = new ArrayList<>();
 }

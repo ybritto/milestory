@@ -3,6 +3,7 @@ package com.ybritto.milestory.goal.in.controller;
 import com.ybritto.milestory.goal.application.model.CreateCustomGoalCategoryCommand;
 import com.ybritto.milestory.goal.application.model.CreateGoalCommand;
 import com.ybritto.milestory.goal.application.model.GoalCheckpointInput;
+import com.ybritto.milestory.goal.application.model.RecordProgressEntryCommand;
 import com.ybritto.milestory.goal.application.model.RestoreGoalCommand;
 import com.ybritto.milestory.goal.application.model.UpdateGoalCommand;
 import com.ybritto.milestory.goal.application.usecase.PreviewGoalPlanUseCase;
@@ -11,6 +12,7 @@ import com.ybritto.milestory.generated.model.CreateGoalCategoryRequest;
 import com.ybritto.milestory.generated.model.CreateGoalRequest;
 import com.ybritto.milestory.generated.model.GoalCheckpointRequest;
 import com.ybritto.milestory.generated.model.GoalDraftRequest;
+import com.ybritto.milestory.generated.model.RecordGoalProgressEntryRequest;
 import com.ybritto.milestory.generated.model.RestoreGoalRequest;
 import com.ybritto.milestory.generated.model.RestoreGoalRequestMode;
 import com.ybritto.milestory.generated.model.Status;
@@ -32,6 +34,17 @@ public interface GoalRequestMapper {
     PreviewGoalPlanUseCase.PreviewGoalPlanCommand toPreviewGoalPlanCommand(GoalDraftRequest request);
 
     RestoreGoalCommand toRestoreGoalCommand(RestoreGoalRequest request);
+
+    default RecordProgressEntryCommand toRecordProgressEntryCommand(RecordGoalProgressEntryRequest request) {
+        if (request == null) {
+            throw new IllegalArgumentException("record progress request must not be null");
+        }
+        return new RecordProgressEntryCommand(
+                request.entryDate(),
+                toBigDecimal(request.progressValue()),
+                request.note()
+        );
+    }
 
     default RestoreGoalCommand.Mode toRestoreMode(RestoreGoalRequestMode mode) {
         if (mode == null) {

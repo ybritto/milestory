@@ -1,0 +1,60 @@
+databaseChangeLog:
+  - changeSet:
+      id: 003-goal-progress-engine
+      author: codex
+      changes:
+        - createTable:
+            tableName: goal_progress_entry
+            columns:
+              - column:
+                  name: progress_entry_id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: goal_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+              - column:
+                  name: entry_date
+                  type: date
+                  constraints:
+                    nullable: false
+              - column:
+                  name: progress_value
+                  type: numeric(19,4)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: note
+                  type: text
+              - column:
+                  name: entry_type
+                  type: varchar(32)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: recorded_at
+                  type: timestamptz
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseTableName: goal_progress_entry
+            baseColumnNames: goal_id
+            referencedTableName: goal
+            referencedColumnNames: goal_id
+            constraintName: fk_goal_progress_entry_goal
+        - createIndex:
+            tableName: goal_progress_entry
+            indexName: idx_goal_progress_entry_goal_date_recorded
+            columns:
+              - column:
+                  name: goal_id
+              - column:
+                  name: entry_date
+                  descending: true
+              - column:
+                  name: recorded_at
+                  descending: true
