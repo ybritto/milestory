@@ -19,6 +19,8 @@ paths:
     $ref: './paths/goals.yaml'
   /api/v1/goals/{goalId}:
     $ref: './paths/goal-by-id.yaml#/GoalByIdPath'
+  /api/v1/goals/{goalId}/progress-entries:
+    $ref: './paths/goal-by-id.yaml#/GoalProgressEntriesPath'
   /api/v1/goals/{goalId}/archive:
     $ref: './paths/goal-by-id.yaml#/GoalArchivePath'
   /api/v1/goals/{goalId}/restore:

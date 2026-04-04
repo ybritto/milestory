@@ -17,8 +17,10 @@ import com.ybritto.milestory.generated.model.CreateGoalCategoryRequest;
 import com.ybritto.milestory.generated.model.CreateGoalRequest;
 import com.ybritto.milestory.generated.model.GoalCategoryResponse;
 import com.ybritto.milestory.generated.model.GoalDraftRequest;
+import com.ybritto.milestory.generated.model.GoalProgressEntryResponse;
 import com.ybritto.milestory.generated.model.GoalPlanPreviewResponse;
 import com.ybritto.milestory.generated.model.GoalResponse;
+import com.ybritto.milestory.generated.model.RecordGoalProgressEntryRequest;
 import com.ybritto.milestory.generated.model.RestoreGoalRequest;
 import com.ybritto.milestory.generated.model.Status;
 import java.util.UUID;
@@ -84,6 +86,14 @@ public class GoalController implements GoalCategoriesApi, GoalPlanningApi, Goals
         return ResponseEntity.ok(goalResponseMapper.mapGoal(
                 updateGoalUseCase.update(goalRequestMapper.toUuid(goalId), goalRequestMapper.toUpdateGoalCommand(body))
         ));
+    }
+
+    @Override
+    public ResponseEntity<GoalProgressEntryResponse> recordGoalProgressEntry(
+            String goalId,
+            RecordGoalProgressEntryRequest body
+    ) {
+        return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
     }
 
     @Override

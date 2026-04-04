@@ -36,6 +36,31 @@ GoalByIdPath:
             schema:
               $ref: '../schemas/goal-planning.yaml#/GoalResponse'
 
+GoalProgressEntriesPath:
+  post:
+    tags:
+      - goals
+    operationId: recordGoalProgressEntry
+    summary: Record a cumulative progress entry
+    description: Adds an append-only cumulative progress entry to an active goal.
+    parameters:
+      - $ref: '#/GoalIdParameter'
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/goal-planning.yaml#/RecordGoalProgressEntryRequest'
+    responses:
+      '201':
+        description: Progress entry recorded.
+        content:
+          application/json:
+            schema:
+              $ref: '../schemas/goal-planning.yaml#/GoalProgressEntryResponse'
+      '409':
+        description: Archived goals are read-only and cannot accept progress entries.
+
 GoalArchivePath:
   post:
     tags:

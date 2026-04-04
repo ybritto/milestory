@@ -174,6 +174,13 @@ GoalResponse:
     - suggestionBasis
     - customizedFromSuggestion
     - plannedPathSummary
+    - currentProgressValue
+    - progressPercentOfTarget
+    - expectedProgressValueToday
+    - paceStatus
+    - paceSummary
+    - paceDetail
+    - progressEntries
     - checkpoints
   properties:
     goalId:
@@ -210,9 +217,28 @@ GoalResponse:
       type: boolean
     plannedPathSummary:
       type: string
+    currentProgressValue:
+      type: number
+      format: double
+    progressPercentOfTarget:
+      type: number
+      format: double
+    expectedProgressValueToday:
+      type: number
+      format: double
+    paceStatus:
+      $ref: '#/GoalPaceStatus'
+    paceSummary:
+      type: string
+    paceDetail:
+      type: string
     archivedAt:
       type: string
       format: date-time
+    progressEntries:
+      type: array
+      items:
+        $ref: '#/GoalProgressEntryResponse'
     checkpoints:
       type: array
       items:
@@ -251,6 +277,8 @@ GoalCheckpointResponse:
     - targetValue
     - note
     - origin
+    - progressContextLabel
+    - progressContextDetail
   properties:
     checkpointId:
       type: string
@@ -278,6 +306,62 @@ GoalCheckpointResponse:
     originalTargetValue:
       type: number
       format: double
+    progressContextLabel:
+      type: string
+    progressContextDetail:
+      type: string
+
+RecordGoalProgressEntryRequest:
+  type: object
+  required:
+    - entryDate
+    - progressValue
+  properties:
+    entryDate:
+      type: string
+      format: date
+    progressValue:
+      type: number
+      format: double
+    note:
+      type: string
+
+GoalProgressEntryResponse:
+  type: object
+  required:
+    - progressEntryId
+    - entryDate
+    - progressValue
+    - note
+    - entryType
+    - recordedAt
+  properties:
+    progressEntryId:
+      type: string
+      format: uuid
+    entryDate:
+      type: string
+      format: date
+    progressValue:
+      type: number
+      format: double
+    note:
+      type: string
+    entryType:
+      type: string
+      enum:
+        - NORMAL
+        - CORRECTION
+    recordedAt:
+      type: string
+      format: date-time
+
+GoalPaceStatus:
+  type: string
+  enum:
+    - BEHIND
+    - ON_PACE
+    - AHEAD
 
 ArchiveGoalResponse:
   type: object
