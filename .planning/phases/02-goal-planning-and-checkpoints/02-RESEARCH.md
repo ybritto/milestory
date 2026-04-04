@@ -79,7 +79,7 @@ Archive behavior should be a first-class status transition, not deletion. Archiv
 | Spring Data JPA | Boot-managed via 4.0.4 | Goal/category/checkpoint persistence | Standard persistence layer for relational aggregate storage |
 | Liquibase | Boot-managed via 4.0.4 | Schema evolution for goals/categories/checkpoints | Already the project-standard migration mechanism |
 | MapStruct | 1.6.3 | Mapping domain/application models to transport and persistence DTOs | Already configured and aligned with backend AGENTS guidance |
-| Angular | 21.2.x | Frontend guided flow, lazy routes, signals-based UI | Already established and current in the repo |
+| Angular | Repo `21.2.0` deps / latest `21.2.7` core | Frontend guided flow, lazy routes, signals-based UI | Already established and current in the repo |
 | Reactive Forms | Angular 21 built-in | Goal draft and checkpoint editing forms | Official Angular default for structured editable forms |
 
 ### Supporting
@@ -87,6 +87,7 @@ Archive behavior should be a first-class status transition, not deletion. Archiv
 |---------|---------|---------|-------------|
 | Vitest via Angular unit-test builder | Repo `4.0.8`, npm latest `4.1.2` | Frontend unit tests | Store, route, and page/component verification |
 | `@openapitools/openapi-generator-cli` | Repo `2.31.0` | Generated Angular client | Regenerate after OpenAPI contract expansion |
+| `@angular/build` | Repo `21.2.3`, npm latest `21.2.6` | Angular application and unit-test builders | Needed for lazy-route feature builds and frontend tests |
 | PostgreSQL driver | Boot-managed via 4.0.4 | Relational persistence | Goal/category/checkpoint storage in local and test DBs |
 | `java.time` (`Year`, `YearMonth`, `LocalDate`) | Java 25 | Planning-cycle and monthly checkpoint dates | Do all checkpoint date math here, not with strings |
 | `BigDecimal` | Java 25 | Target and checkpoint numeric values | Avoid floating-point drift in cumulative plans |
@@ -109,19 +110,21 @@ mvn -pl milestory-api,milestory-backend test
 ```bash
 npm view @angular/core version
 npm view @angular/cli version
+npm view @angular/build version
 npm view vitest version
 npm view @openapitools/openapi-generator-cli version
-curl -s 'https://search.maven.org/solrsearch/select?q=g:%22org.mapstruct%22+AND+a:%22mapstruct%22&core=gav&rows=5&wt=json'
+mvn -q -DforceStdout -f milestory-backend/pom.xml help:evaluate -Dexpression=mapstruct.version
 ```
 
 Verified on 2026-04-04:
 - `@angular/core`: `21.2.7`, published 2026-04-01
 - `@angular/cli`: `21.2.6`, published 2026-04-01
+- `@angular/build`: `21.2.6`, published 2026-04-01
 - `vitest`: `4.1.2`, published 2026-03-26
 - `@openapitools/openapi-generator-cli`: `2.31.0`, published 2026-03-24
-- `mapstruct`: `1.6.3`, Maven Central timestamp 2024-11-09
+- `mapstruct`: repo property resolves to `1.6.3`
 
-Note: the repo is already pinned to Angular `21.2.0/21.2.3`, Vitest `4.0.8`, and Spring Boot `4.0.4`. Keep repo-pinned backend versions for Phase 2 unless there is a separate maintenance plan.
+Note: the repo is already pinned to Angular `21.2.0/21.2.3`, Vitest `4.0.8`, OpenAPI Generator CLI `2.31.0`, and Spring Boot `4.0.4`. Keep repo-pinned backend versions for Phase 2 unless there is a separate maintenance plan.
 
 ## Architecture Patterns
 
@@ -438,19 +441,22 @@ Backend targeted command was re-verified on 2026-04-04 and exited with code `0`.
 
 ### Primary (HIGH confidence)
 - Local repo context: `.planning/phases/02-goal-planning-and-checkpoints/02-CONTEXT.md`, `.planning/PROJECT.md`, `.planning/ROADMAP.md`, `.planning/REQUIREMENTS.md`
-- Local repo implementation patterns: `milestory-backend/src/main/java/com/ybritto/milestory/status/**`, `milestory-frontend/src/app/**`, `milestory-api/rest/api-v1.yaml`
+- Local repo implementation patterns: `milestory-backend/src/main/java/com/ybritto/milestory/status/**`, `milestory-backend/src/test/java/com/ybritto/milestory/status/**`, `milestory-frontend/src/app/**`, `milestory-api/rest/api-v1.yaml`, `pom.xml`, `milestory-backend/pom.xml`, `milestory-frontend/package.json`, `milestory-frontend/angular.json`
 - Angular reactive forms guide: https://angular.dev/guide/forms/reactive-forms
+- Angular dynamic forms guide: https://angular.dev/guide/forms/dynamic-forms
 - Angular router tasks guide: https://angular.dev/guide/routing/common-router-tasks
 - Spring Data JPA reference: https://docs.spring.io/spring-data/jpa/reference/
-- Spring Boot data initialization/Liquibase guidance: https://docs.spring.io/spring-boot/reference/howto/data-initialization.html
+- Spring Boot data access and SQL database guidance: https://docs.spring.io/spring-boot/reference/data/sql.html
+- openapi-processor documentation: https://openapiprocessor.io/oap/index.html
 - OpenAPI Generator TypeScript Angular docs: https://openapi-generator.tech/docs/generators/typescript-angular/
 
 ### Secondary (MEDIUM confidence)
 - `npm view @angular/core version time --json`
 - `npm view @angular/cli version time --json`
+- `npm view @angular/build version time --json`
 - `npm view vitest version time --json`
 - `npm view @openapitools/openapi-generator-cli version time --json`
-- Maven Central query for `org.mapstruct:mapstruct`
+- `mvn -q -DforceStdout -f milestory-backend/pom.xml help:evaluate -Dexpression=mapstruct.version`
 
 ### Tertiary (LOW confidence)
 - Maven Central availability for the repo’s `io.openapiprocessor` `2026.x` versions was not independently verified; keep the repo-pinned plugin versions unchanged for this phase.
