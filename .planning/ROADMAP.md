@@ -42,6 +42,13 @@ Plans:
 
 **Requirements:** GOAL-01, GOAL-02, GOAL-03, GOAL-04, PLAN-01, PLAN-02, PLAN-03
 
+**Plans:** 3 plans
+
+Plans:
+- [ ] 02-01-PLAN.md — Define the goal-planning contract and backend foundation for categories, previews, and checkpoints
+- [ ] 02-02-PLAN.md — Implement the backend goal slice for create, detail, edit, archive, and restore behavior
+- [ ] 02-03-PLAN.md — Ship the guided Angular goal planning, detail, and archive flow
+
 **Success criteria:**
 1. User can create, edit, and archive yearly goals through the product UI
 2. Goal model supports multiple categories without forking the entire workflow per category
