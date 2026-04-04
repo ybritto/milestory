@@ -101,6 +101,42 @@ public final class Goal {
         );
     }
 
+    public static Goal rehydrate(
+            UUID goalId,
+            Year planningYear,
+            String title,
+            UUID categoryId,
+            BigDecimal targetValue,
+            String unit,
+            String motivation,
+            String notes,
+            GoalStatus status,
+            String suggestionBasis,
+            boolean customizedFromSuggestion,
+            Instant archivedAt,
+            Instant createdAt,
+            Instant updatedAt,
+            List<GoalCheckpoint> checkpoints
+    ) {
+        return new Goal(
+                goalId,
+                planningYear,
+                title,
+                categoryId,
+                targetValue,
+                unit,
+                motivation,
+                notes,
+                status,
+                suggestionBasis,
+                customizedFromSuggestion,
+                archivedAt,
+                createdAt,
+                updatedAt,
+                checkpoints
+        );
+    }
+
     public Goal update(
             String title,
             UUID categoryId,
@@ -155,7 +191,12 @@ public final class Goal {
         );
     }
 
-    public Goal restore(Instant restoredAt, List<GoalCheckpoint> checkpoints) {
+    public Goal restore(
+            String suggestionBasis,
+            boolean customizedFromSuggestion,
+            Instant restoredAt,
+            List<GoalCheckpoint> checkpoints
+    ) {
         if (status != GoalStatus.ARCHIVED) {
             throw new IllegalStateException("Only archived goals can be restored");
         }
@@ -283,7 +324,7 @@ public final class Goal {
         if (value.signum() <= 0) {
             throw new IllegalArgumentException(fieldName + " must be positive");
         }
-        return value.stripTrailingZeros();
+        return value;
     }
 
     private static String requireText(String value, String fieldName) {

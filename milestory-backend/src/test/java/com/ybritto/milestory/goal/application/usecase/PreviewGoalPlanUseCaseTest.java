@@ -30,6 +30,7 @@ class PreviewGoalPlanUseCaseTest {
         ));
 
         assertEquals(2026, preview.planningYear().getValue());
+        assertEquals(GoalPlanPreview.SuggestionBasis.CATEGORY_AWARE, preview.suggestionBasis());
         assertEquals(12, preview.checkpoints().size());
         assertEquals(LocalDate.of(2026, 1, 31), preview.checkpoints().getFirst().checkpointDate());
         assertEquals(BigDecimal.valueOf(2), preview.checkpoints().getFirst().targetValue());

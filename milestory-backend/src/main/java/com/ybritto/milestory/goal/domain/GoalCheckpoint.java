@@ -110,7 +110,7 @@ public final class GoalCheckpoint {
         if (value.signum() <= 0) {
             throw new IllegalArgumentException(fieldName + " must be positive");
         }
-        return value.stripTrailingZeros();
+        return value;
     }
 
     private static String requireText(String value, String fieldName) {
