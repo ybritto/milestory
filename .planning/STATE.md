@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 current_phase: 02
-status: in_progress
-stopped_at: Completed `02-02-PLAN.md`
-last_updated: "2026-04-04T08:48:49.105Z"
+status: complete
+stopped_at: Completed `02-03-PLAN.md`
+last_updated: "2026-04-04T09:01:51.110Z"
 progress:
   total_phases: 4
-  completed_phases: 1
+  completed_phases: 2
   total_plans: 6
-  completed_plans: 5
+  completed_plans: 6
 ---
 
 # STATE.md
@@ -36,16 +36,16 @@ See: `.planning/PROJECT.md` (updated 2026-04-03)
 | Phase | Name | Status |
 |-------|------|--------|
 | 1 | Foundation And Personal Mode | Complete |
-| 2 | Goal Planning And Checkpoints | In Progress |
+| 2 | Goal Planning And Checkpoints | Complete |
 | 3 | Progress Engine And Status | Pending |
 | 4 | Dashboard And Motivational UX | Pending |
 
 ## Current Execution
 
 - **Current phase:** 02
-- **Completed plans:** `01-01`, `01-02`, `01-03`, `02-01`, `02-02`
-- **Next plan:** `02-03`
-- **Plan progress:** `2 / 3` (`67%`)
+- **Completed plans:** `01-01`, `01-02`, `01-03`, `02-01`, `02-02`, `02-03`
+- **Next plan:** `Phase 03 discussion`
+- **Plan progress:** `3 / 3` (`100%`)
 
 ## Decisions
 
@@ -61,6 +61,9 @@ See: `.planning/PROJECT.md` (updated 2026-04-03)
 - Keep generated OpenAPI models at the controller boundary and translate them into application commands through MapStruct.
 - Enforce archived goals as read-only backend state, with explicit `KEEP_EXISTING` and `REGENERATE` restore semantics.
 - Preserve `BigDecimal` scale through the goal model so equality-based tests and serialized payloads stay stable.
+- Reuse the same guided create/edit flow in the frontend so goal updates stay aligned with initial planning.
+- Keep the frontend planning store backend-driven so preview, detail, archive, and restore state all come straight from API responses.
+- Route `/goals/archive` ahead of the generic detail route so archive navigation cannot be captured by `:goalId`.
 
 ## Performance Metrics
 
@@ -70,11 +73,12 @@ See: `.planning/PROJECT.md` (updated 2026-04-03)
 | 01-foundation-and-personal-mode | 03 | 8 min | 2 | 13 |
 | Phase 02 P01 | 39 min | 2 tasks | 16 files |
 | Phase 02 P02 | 17 min | 2 tasks | 42 files |
+| Phase 02 P03 | 14 min | 2 tasks | 21 files |
 
 ## Session
 
-- **Stopped at:** Completed `02-02-PLAN.md`
-- **Last summary:** `.planning/phases/02-goal-planning-and-checkpoints/02-02-SUMMARY.md`
+- **Stopped at:** Completed `02-03-PLAN.md`
+- **Last summary:** `.planning/phases/02-goal-planning-and-checkpoints/02-03-SUMMARY.md`
 
 ## Notes
 
@@ -83,4 +87,4 @@ See: `.planning/PROJECT.md` (updated 2026-04-03)
 - Template leftovers remain in some docs and metadata and should stay visible during implementation decisions
 
 ---
-*Last updated: 2026-04-04 after Phase 02 Plan 02 completion*
+*Last updated: 2026-04-04 after Phase 02 completion*
