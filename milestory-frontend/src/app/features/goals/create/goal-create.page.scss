@@ -89,6 +89,18 @@ h1 {
   font-size: 13px;
 }
 
+.goal-field__error {
+  color: var(--color-destructive);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+input[aria-invalid='true'],
+textarea[aria-invalid='true'] {
+  border-color: rgb(182 71 53 / 0.65);
+  box-shadow: 0 0 0 3px rgb(182 71 53 / 0.12);
+}
+
 .goal-category-picker {
   display: grid;
   gap: var(--space-md);

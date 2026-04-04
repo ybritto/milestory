@@ -30,7 +30,7 @@
           <li>{{ goal.motivation }}</li>
           <li>{{ goal.notes }}</li>
           <li>{{ goal.plannedPathSummary }}</li>
-          <li>{{ goal.suggestionBasis }}</li>
+          <li>{{ suggestionBasisLabel() }}</li>
         </ul>
 
         @if (goal.status === 'ARCHIVED') {

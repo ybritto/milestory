@@ -8,11 +8,19 @@
       </p>
     </header>
 
-    <form class="goal-card goal-form" [formGroup]="form" (ngSubmit)="continue()">
+    <form class="goal-card goal-form" [formGroup]="form" (ngSubmit)="continue()" novalidate>
       <div class="goal-form__grid">
         <label class="goal-field">
           <span class="goal-field__label">Goal title</span>
-          <input type="text" formControlName="title" placeholder="Read 24 books" />
+          <input
+            type="text"
+            formControlName="title"
+            placeholder="Read 24 books"
+            [attr.aria-invalid]="hasError('title')"
+          />
+          @if (hasError('title')) {
+            <span class="goal-field__error" data-testid="field-error">{{ errorMessage('title') }}</span>
+          }
         </label>
 
         <div class="goal-field">
@@ -42,6 +50,9 @@
               <span class="goal-category-picker__meta">Name a category that fits the goal better</span>
             </button>
           </div>
+          @if (hasError('category') && form.controls.categoryMode.value !== 'custom') {
+            <span class="goal-field__error" data-testid="field-error">{{ errorMessage('category') }}</span>
+          }
         </div>
 
         <label class="goal-field goal-field--wide goal-field--subtle">
@@ -50,20 +61,43 @@
             type="text"
             formControlName="customCategoryName"
             placeholder="Creative Practice"
+            [attr.aria-invalid]="hasError('category') && form.controls.categoryMode.value === 'custom'"
           />
           <span class="goal-field__hint">
             Switch to the custom path when the starter categories do not fit.
           </span>
+          @if (hasError('category') && form.controls.categoryMode.value === 'custom') {
+            <span class="goal-field__error" data-testid="field-error">{{ errorMessage('category') }}</span>
+          }
         </label>
 
         <label class="goal-field">
           <span class="goal-field__label">Target value</span>
-          <input type="number" formControlName="targetValue" min="1" step="1" />
+          <input
+            type="number"
+            formControlName="targetValue"
+            min="1"
+            step="1"
+            [attr.aria-invalid]="hasError('targetValue')"
+          />
+          @if (hasError('targetValue')) {
+            <span class="goal-field__error" data-testid="field-error">
+              {{ errorMessage('targetValue') }}
+            </span>
+          }
         </label>
 
         <label class="goal-field">
           <span class="goal-field__label">Unit</span>
-          <input type="text" formControlName="unit" placeholder="books" />
+          <input
+            type="text"
+            formControlName="unit"
+            placeholder="books"
+            [attr.aria-invalid]="hasError('unit')"
+          />
+          @if (hasError('unit')) {
+            <span class="goal-field__error" data-testid="field-error">{{ errorMessage('unit') }}</span>
+          }
         </label>
 
         <label class="goal-field goal-field--wide">
@@ -72,7 +106,13 @@
             formControlName="motivation"
             rows="4"
             placeholder="Build a steadier reading practice."
+            [attr.aria-invalid]="hasError('motivation')"
           ></textarea>
+          @if (hasError('motivation')) {
+            <span class="goal-field__error" data-testid="field-error">
+              {{ errorMessage('motivation') }}
+            </span>
+          }
         </label>
 
         <label class="goal-field goal-field--wide">
@@ -81,7 +121,11 @@
             formControlName="notes"
             rows="4"
             placeholder="Focus on long-form non-fiction and two novels each quarter."
+            [attr.aria-invalid]="hasError('notes')"
           ></textarea>
+          @if (hasError('notes')) {
+            <span class="goal-field__error" data-testid="field-error">{{ errorMessage('notes') }}</span>
+          }
         </label>
       </div>
 

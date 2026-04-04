@@ -32,6 +32,16 @@ export class GoalDetailPage {
   });
   readonly checkpointCount = computed(() => this.goal()?.checkpoints.length ?? 0);
   readonly checkpointCards = computed(() => this.goal()?.checkpoints ?? []);
+  readonly suggestionBasisLabel = computed(() => {
+    switch (this.goal()?.suggestionBasis) {
+      case 'CATEGORY_AWARE':
+        return 'Category-based plan';
+      case 'GENERIC_FALLBACK':
+        return 'General milestone plan';
+      default:
+        return 'Backend-generated plan';
+    }
+  });
 
   constructor() {
     this.goalPlanningStore.loadGoalCategories();
@@ -63,5 +73,4 @@ export class GoalDetailPage {
       },
     });
   }
-
 }

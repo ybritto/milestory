@@ -59,8 +59,18 @@ No separate Wave 0 is required for this plan set. The backend domain, controller
 
 | Behavior | Requirement | Why Manual | Test Instructions |
 |----------|-------------|------------|-------------------|
-| Goal creation flow feels coherent and product-quality across draft, checkpoint review, and final save | GOAL-01, PLAN-02 | Interaction quality, copy, and visual pacing across a multi-step flow are not fully provable via unit tests | Run the frontend with the backend live, create a new goal from start to finish, and confirm the guided flow, card editor, summary, and customized messaging feel clear and intentional |
-| Archive and restore behavior is understandable for a real user | GOAL-03 | Human judgment is needed to confirm archive controls are discoverable but secondary, and restore choices are understandable | Archive a goal from the active experience, view it in the archive area, then restore once with keep-existing and once with regenerate to confirm the behavior matches the copy and intent |
+| Goal creation flow feels coherent and product-quality across draft, checkpoint review, and final save | GOAL-01, PLAN-02 | Interaction quality, copy, and visual pacing across a multi-step flow are not fully provable via unit tests | Run the frontend with the backend live. Start at `/` for the current home/status screen, then open `/goals/new` for the goal draft step and `/goals/new/plan` after preview generation. Create a new goal from start to finish and confirm the guided flow, card editor, summary, and customized messaging feel clear and intentional. |
+| Archive and restore behavior is understandable for a real user | GOAL-03 | Human judgment is needed to confirm archive controls are discoverable but secondary, and restore choices are understandable | Run the frontend with the backend live. Use `/goals/:goalId` for a saved goal detail page and `/goals/archive` for the archive area. Archive a goal from detail, view it in the archive area, then restore once with keep-existing and once with regenerate to confirm the behavior matches the copy and intent. |
+
+## Frontend Entry URLs
+
+- Home / status screen: `/`
+- Goal creation draft: `/goals/new`
+- Goal checkpoint review: `/goals/new/plan`
+- Saved goal detail: `/goals/:goalId`
+- Goal edit draft: `/goals/:goalId/edit`
+- Goal edit plan review: `/goals/:goalId/edit/plan`
+- Archived goals: `/goals/archive`
 
 ---
 

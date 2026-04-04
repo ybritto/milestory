@@ -61,12 +61,28 @@ describe('GoalDetailPage', () => {
     expect(textContent()).toContain('Planned path');
     expect(textContent()).toContain('Monthly milestones carry the target across the year.');
     expect(textContent()).toContain('Customized from suggestion');
+    expect(textContent()).toContain('Category-based plan');
+    expect(textContent()).not.toContain('CATEGORY_AWARE');
     expect(fixture.nativeElement.querySelectorAll('.checkpoint-card').length).toBe(2);
   });
 
   it('shows archive and edit actions for an active goal', () => {
     expect(textContent()).toContain('Archive goal');
     expect(textContent()).toContain('Edit plan');
+  });
+
+  it('centers archived action pills like buttons', () => {
+    const styles = ((GoalDetailPage as unknown as { ɵcmp: { styles: string[] } }).ɵcmp.styles).join('\n');
+
+    expect(styles).toMatch(/display:\s*inline-flex/);
+    expect(styles).toMatch(/align-items:\s*center/);
+    expect(styles).toMatch(/justify-content:\s*center/);
+  });
+
+  it('adds breathing room above the action row', () => {
+    const styles = ((GoalDetailPage as unknown as { ɵcmp: { styles: string[] } }).ɵcmp.styles).join('\n');
+
+    expect(styles).toMatch(/margin-top:\s*var\(--space-lg\)/);
   });
 });
 

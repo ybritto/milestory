@@ -153,6 +153,9 @@ h2 {
 }
 
 .archive-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   min-height: 44px;
   padding: 0 1rem;
   border: 0;

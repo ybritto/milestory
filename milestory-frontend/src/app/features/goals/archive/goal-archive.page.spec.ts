@@ -63,6 +63,14 @@ describe('GoalArchivePage', () => {
     expect(restoreGoal).toHaveBeenNthCalledWith(1, 'goal-id', 'KEEP_EXISTING');
     expect(restoreGoal).toHaveBeenNthCalledWith(2, 'goal-id', 'REGENERATE');
   });
+
+  it('centers archive action pills like buttons', () => {
+    const styles = ((GoalArchivePage as unknown as { ɵcmp: { styles: string[] } }).ɵcmp.styles).join('\n');
+
+    expect(styles).toMatch(/display:\s*inline-flex/);
+    expect(styles).toMatch(/align-items:\s*center/);
+    expect(styles).toMatch(/justify-content:\s*center/);
+  });
 });
 
 function createGoal(): ListGoals200ResponseInner {

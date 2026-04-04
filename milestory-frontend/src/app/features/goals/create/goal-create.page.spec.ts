@@ -99,6 +99,26 @@ describe('GoalCreatePage', () => {
     });
     expect(navigate).toHaveBeenCalledWith(['/goals/new/plan']);
   });
+
+  it('shows visible validation errors when mandatory fields are missing', () => {
+    fixture.nativeElement.querySelector('button[type="submit"]').click();
+    fixture.detectChanges();
+
+    const errors = Array.from(
+      fixture.nativeElement.querySelectorAll('[data-testid="field-error"]'),
+    ).map((element) => (element as HTMLElement).textContent?.trim());
+
+    expect(errors).toEqual([
+      'Goal title is required.',
+      'Choose a starter category or create a custom one.',
+      'Target value must be greater than 0.',
+      'Unit is required.',
+      'Motivation is required.',
+      'Notes are required.',
+    ]);
+    expect(previewDraft).not.toHaveBeenCalled();
+    expect(navigate).not.toHaveBeenCalled();
+  });
 });
 
 function createCategories(): ListGoalCategories200ResponseInner[] {
