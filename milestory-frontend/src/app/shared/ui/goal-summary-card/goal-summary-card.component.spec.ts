@@ -1,5 +1,7 @@
 import { TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { provideRouter } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { describe, expect, it } from 'vitest';
 
 import { DashboardGoalCardViewModel } from '../../../features/dashboard/shared/dashboard-view.models';
@@ -18,12 +20,12 @@ describe('GoalSummaryCardComponent', () => {
     await fixture.whenStable();
 
     const text = fixture.nativeElement.textContent ?? '';
-    const link = fixture.nativeElement.querySelector('[routerLink]');
+    const link = fixture.debugElement.query(By.directive(RouterLink)).injector.get(RouterLink);
 
     expect(text).toContain('Actual so far');
     expect(text).toContain('Expected by today');
     expect(text).toContain('Next checkpoint');
-    expect(link?.getAttribute('ng-reflect-router-link')).toContain('/goals,goal-id');
+    expect(link.href).toBe('/goals/goal-id');
   });
 });
 

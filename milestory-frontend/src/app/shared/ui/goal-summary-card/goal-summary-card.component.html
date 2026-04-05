@@ -1,1 +1,29 @@
-<article></article>
+<article class="goal-summary-card" [class]="'goal-summary-card goal-summary-card--' + paceTone()">
+  <a class="goal-summary-card__link" [routerLink]="goalLink()">
+    <div class="goal-summary-card__header">
+      <div>
+        <p class="goal-summary-card__eyebrow">{{ goal().paceStatus.replace('_', ' ') }}</p>
+        <h3>{{ goal().title }}</h3>
+      </div>
+      <app-accomplishment-band [progressPercent]="goal().progressPercentOfTarget" />
+    </div>
+
+    <p class="goal-summary-card__summary">{{ goal().paceSummary }}</p>
+    <p class="goal-summary-card__signal">{{ goal().strongestSignal }}</p>
+
+    <div class="goal-summary-card__metrics">
+      <article class="goal-summary-card__metric">
+        <p class="goal-summary-card__label">Actual so far</p>
+        <p class="goal-summary-card__value">{{ goal().currentProgressValue }} {{ goal().unit }}</p>
+      </article>
+      <article class="goal-summary-card__metric">
+        <p class="goal-summary-card__label">Expected by today</p>
+        <p class="goal-summary-card__value">{{ goal().expectedProgressValueToday }} {{ goal().unit }}</p>
+      </article>
+      <article class="goal-summary-card__metric">
+        <p class="goal-summary-card__label">Next checkpoint</p>
+        <p class="goal-summary-card__value">{{ nextCheckpointText() }}</p>
+      </article>
+    </div>
+  </a>
+</article>
