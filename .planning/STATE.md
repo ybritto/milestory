@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 current_phase: 04
-status: in_progress
-stopped_at: Completed 04-02-PLAN.md
-last_updated: "2026-04-05T23:17:30Z"
+status: complete
+stopped_at: Completed 04-03-PLAN.md
+last_updated: "2026-04-05T23:22:58.463Z"
 progress:
   total_phases: 4
-  completed_phases: 3
+  completed_phases: 4
   total_plans: 12
-  completed_plans: 11
+  completed_plans: 12
 ---
 
 # STATE.md
@@ -30,7 +30,7 @@ See: `.planning/PROJECT.md` (updated 2026-04-03)
 - Requirements and roadmap created for the auth-free personal first release
 - Phase 01 is complete with the auth-free backend status endpoint and the Milestory-branded frontend home screen
 - Phase 03 is now complete with persistent progress-entry writes, enriched read models, and the goal-detail progress-entry experience
-- Phase 04 is in progress with the dashboard shell and dashboard-first route tree now in place
+- Phase 04 is complete with the dashboard shell, active-goals destination, and shared accomplishment-band treatment wired through the goal detail experience
 
 ## Phase Summary
 
@@ -39,14 +39,14 @@ See: `.planning/PROJECT.md` (updated 2026-04-03)
 | 1 | Foundation And Personal Mode | Complete |
 | 2 | Goal Planning And Checkpoints | Complete |
 | 3 | Progress Engine And Status | Complete |
-| 4 | Dashboard And Motivational UX | In Progress |
+| 4 | Dashboard And Motivational UX | Complete |
 
 ## Current Execution
 
 - **Current phase:** 04
-- **Completed plans:** `01-01`, `01-02`, `01-03`, `02-01`, `02-02`, `02-03`, `03-01`, `03-02`, `03-03`, `04-01`, `04-02`
-- **Next plan:** `04-03`
-- **Plan progress:** `2 / 3` (`67%`) for Phase 04
+- **Completed plans:** `01-01`, `01-02`, `01-03`, `02-01`, `02-02`, `02-03`, `03-01`, `03-02`, `03-03`, `04-01`, `04-02`, `04-03`
+- **Next plan:** none
+- **Plan progress:** `3 / 3` (`100%`) for Phase 04
 
 ## Decisions
 
@@ -79,6 +79,8 @@ See: `.planning/PROJECT.md` (updated 2026-04-03)
 - [Phase 04-dashboard-and-motivational-ux]: Ship the frontend through AppShellComponent and redirect the shell root to dashboard instead of keeping HomePage as the default entry.
 - [Phase 04-dashboard-and-motivational-ux]: Use Angular CDK focus primitives for the mobile drawer so focus capture and focus return stay accessible without custom trap logic.
 - [Phase 04-dashboard-and-motivational-ux]: Reserve /goals/active ahead of :goalId with an intentional lightweight page until Plan 04-03 implements the fuller active-goals surface.
+- [Phase 04-dashboard-and-motivational-ux]: Keep Active goals as a route-driven scan page backed by existing GoalPlanningStore state instead of adding inline controls or a separate store in this plan.
+- [Phase 04-dashboard-and-motivational-ux]: Use AccomplishmentBandComponent directly in goal detail so dashboard and detail cannot drift on motivational threshold copy.
 
 ## Performance Metrics
 
@@ -94,11 +96,12 @@ See: `.planning/PROJECT.md` (updated 2026-04-03)
 | Phase 03-progress-engine-and-status P03 | 6 min | 2 tasks | 9 files |
 | Phase 04-dashboard-and-motivational-ux P01 | 7 min | 3 tasks | 13 files |
 | Phase 04-dashboard-and-motivational-ux P02 | 5 min | 1 tasks | 14 files |
+| Phase 04-dashboard-and-motivational-ux P03 | 4 min | 2 tasks | 7 files |
 
 ## Session
 
-- **Stopped at:** Completed 04-02-PLAN.md
-- **Last summary:** `.planning/phases/04-dashboard-and-motivational-ux/04-02-SUMMARY.md`
+- **Stopped at:** Completed 04-03-PLAN.md
+- **Last summary:** `.planning/phases/04-dashboard-and-motivational-ux/04-03-SUMMARY.md`
 
 ## Notes
 
@@ -107,4 +110,4 @@ See: `.planning/PROJECT.md` (updated 2026-04-03)
 - Template leftovers remain in some docs and metadata and should stay visible during implementation decisions
 
 ---
-*Last updated: 2026-04-05 after completing Phase 04 Plan 02*
+*Last updated: 2026-04-05 after completing Phase 04 Plan 03*
