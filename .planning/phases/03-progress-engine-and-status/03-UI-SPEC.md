@@ -168,7 +168,7 @@ Accent reserved for: primary `Add progress update` button, `On pace` and `Ahead`
   2. `Progress so far`
   3. `Note` (optional)
 - Overlay submit label: `Save progress update`.
-- Overlay secondary action label: `Cancel`.
+- Overlay secondary action label: `Close without saving`.
 - On save success:
   - close the overlay
   - refresh the goal detail payload
