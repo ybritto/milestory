@@ -80,11 +80,12 @@ Plans:
 
 **Requirements:** PLAT-03, DASH-01, DASH-02, DASH-03, DASH-04
 
-**Plans:** 2 plans
+**Plans:** 3 plans
 
 Plans:
 - [ ] 04-01-PLAN.md — Build the dashboard presenter, accomplishment-band system, and dashboard page
-- [ ] 04-02-PLAN.md — Replace the placeholder root with the app shell, active-goals route, and shared drill-down wiring
+- [ ] 04-02-PLAN.md — Replace the placeholder root with the app shell and dashboard-first route tree
+- [ ] 04-03-PLAN.md — Add the active-goals route and align detail screens with shared accomplishment bands
 
 **Success criteria:**
 1. The starter Angular placeholder is fully replaced by Milestory-specific product screens

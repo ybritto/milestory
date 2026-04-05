@@ -329,7 +329,7 @@ export const appConfig: ApplicationConfig = {
 |--------|----------|-----------|-------------------|-------------|
 | PLAT-03 | Root UX is a real app shell and dashboard, not starter placeholder content | component/routing | `npm --prefix milestory-frontend test -- --watch=false --include src/app/shell/app-shell.component.spec.ts` | ❌ Wave 0 |
 | DASH-01 | Dashboard command center summarizes active goal health | component + store | `npm --prefix milestory-frontend test -- --watch=false --include src/app/features/dashboard/dashboard.page.spec.ts` | ❌ Wave 0 |
-| DASH-02 | Goals are grouped and urgency-ordered so attention needs are obvious | store/unit | `npm --prefix milestory-frontend test -- --watch=false --include src/app/features/dashboard/dashboard.store.spec.ts` | ❌ Wave 0 |
+| DASH-02 | Goals are grouped and urgency-ordered so attention needs are obvious | presenter/unit | `npm --prefix milestory-frontend test -- --watch=false --include src/app/features/dashboard/shared/dashboard.presenter.spec.ts` | ❌ Wave 0 |
 | DASH-03 | Accomplishment bands render consistently in dashboard and detail | component/unit | `npm --prefix milestory-frontend test -- --watch=false --include src/app/shared/ui/accomplishment-band/accomplishment-band.component.spec.ts` | ❌ Wave 0 |
 | DASH-04 | Dashboard cards and callouts drill into goal detail clearly | component/routing | `npm --prefix milestory-frontend test -- --watch=false --include src/app/features/dashboard/dashboard.page.spec.ts --filter \"drill|navigate\"` | ❌ Wave 0 |
 
@@ -340,7 +340,7 @@ export const appConfig: ApplicationConfig = {
 
 ### Wave 0 Gaps
 - [ ] `milestory-frontend/src/app/shell/app-shell.component.spec.ts` — shell nav, active-link semantics, mobile drawer behavior
-- [ ] `milestory-frontend/src/app/features/dashboard/dashboard.store.spec.ts` — grouping, urgency ordering, strongest risk/win, suggested-next-goal
+- [ ] `milestory-frontend/src/app/features/dashboard/shared/dashboard.presenter.spec.ts` — grouping, urgency ordering, strongest risk/win, suggested-next-goal
 - [ ] `milestory-frontend/src/app/features/dashboard/dashboard.page.spec.ts` — command-center rendering and drill-down links
 - [ ] `milestory-frontend/src/app/shared/ui/accomplishment-band/accomplishment-band.component.spec.ts` — threshold rendering for 80/100/120
 
