@@ -4,11 +4,23 @@ export const routes: Routes = [
   {
     path: '',
     loadComponent: () =>
-      import('./features/home/home.page').then((module) => module.HomePage),
-  },
-  {
-    path: 'goals',
-    loadChildren: () =>
-      import('./features/goals/goal.routes').then((module) => module.GOAL_ROUTES),
+      import('./shell/app-shell.component').then((module) => module.AppShellComponent),
+    children: [
+      {
+        path: '',
+        pathMatch: 'full',
+        redirectTo: 'dashboard',
+      },
+      {
+        path: 'dashboard',
+        loadComponent: () =>
+          import('./features/dashboard/dashboard.page').then((module) => module.DashboardPage),
+      },
+      {
+        path: 'goals',
+        loadChildren: () =>
+          import('./features/goals/goal.routes').then((module) => module.GOAL_ROUTES),
+      },
+    ],
   },
 ];

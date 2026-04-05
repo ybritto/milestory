@@ -1,0 +1,125 @@
+<div class="app-shell">
+  <aside class="app-shell__sidebar" aria-label="Primary">
+    <div class="app-shell__brand">
+      <p class="app-shell__eyebrow">Milestory</p>
+      <h1>Yearly momentum</h1>
+      <p class="app-shell__summary">Keep the year visible, measurable, and difficult to drift away from.</p>
+    </div>
+
+    <nav class="app-shell__nav" aria-label="Primary navigation">
+      <a
+        class="app-shell__link"
+        routerLink="/dashboard"
+        routerLinkActive="app-shell__link--active"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        Dashboard
+      </a>
+      <a class="app-shell__link" routerLink="/goals/active" routerLinkActive="app-shell__link--active">
+        Active goals
+      </a>
+      <a class="app-shell__link" routerLink="/goals/archive" routerLinkActive="app-shell__link--active">
+        Archive
+      </a>
+      <a
+        class="app-shell__link app-shell__link--primary"
+        routerLink="/goals/new"
+        routerLinkActive="app-shell__link--active"
+      >
+        New goal
+      </a>
+    </nav>
+  </aside>
+
+  <div class="app-shell__content">
+    <header class="app-shell__topbar">
+      <button
+        #menuTrigger
+        type="button"
+        class="app-shell__menu-trigger"
+        data-testid="shell-menu-trigger"
+        aria-label="Open navigation menu"
+        [attr.aria-expanded]="isDrawerOpen()"
+        aria-controls="shell-mobile-drawer"
+        (click)="openDrawer()"
+      >
+        Menu
+      </button>
+
+      <div class="app-shell__topbar-copy">
+        <p class="app-shell__eyebrow">Dashboard-first workspace</p>
+        <p class="app-shell__topbar-title">Your goals now live inside the Milestory shell.</p>
+      </div>
+    </header>
+
+    <main class="app-shell__main">
+      <router-outlet />
+    </main>
+  </div>
+</div>
+
+@if (isDrawerOpen()) {
+  <div class="app-shell__drawer-backdrop" (click)="closeDrawer()">
+    <section
+      id="shell-mobile-drawer"
+      class="app-shell__drawer"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Navigation menu"
+      data-testid="shell-mobile-drawer"
+      cdkTrapFocus
+      cdkTrapFocusAutoCapture
+      (click)="$event.stopPropagation()"
+    >
+      <div class="app-shell__drawer-header">
+        <p class="app-shell__eyebrow">Navigate</p>
+        <button
+          #closeDrawerButton
+          type="button"
+          class="app-shell__drawer-close"
+          data-testid="shell-close-drawer"
+          aria-label="Close navigation menu"
+          (click)="closeDrawer()"
+        >
+          Close
+        </button>
+      </div>
+
+      <nav class="app-shell__drawer-nav" aria-label="Mobile navigation">
+        <a
+          class="app-shell__drawer-link"
+          routerLink="/dashboard"
+          routerLinkActive="app-shell__drawer-link--active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          (click)="handleNavActivate()"
+        >
+          Dashboard
+        </a>
+        <a
+          class="app-shell__drawer-link"
+          routerLink="/goals/active"
+          routerLinkActive="app-shell__drawer-link--active"
+          (click)="handleNavActivate()"
+        >
+          Active goals
+        </a>
+        <a
+          class="app-shell__drawer-link"
+          routerLink="/goals/archive"
+          routerLinkActive="app-shell__drawer-link--active"
+          (click)="handleNavActivate()"
+        >
+          Archive
+        </a>
+        <a
+          class="app-shell__drawer-link app-shell__drawer-link--primary"
+          routerLink="/goals/new"
+          routerLinkActive="app-shell__drawer-link--active"
+          (click)="handleNavActivate()"
+        >
+          New goal
+        </a>
+      </nav>
+    </section>
+  </div>
+}

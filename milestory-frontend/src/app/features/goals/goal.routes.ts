@@ -32,6 +32,11 @@ export const GOAL_ROUTES: Routes = [
       import('./archive/goal-archive.page').then((module) => module.GoalArchivePage),
   },
   {
+    path: 'active',
+    loadComponent: () =>
+      import('./active/active-goals.page').then((module) => module.ActiveGoalsPage),
+  },
+  {
     path: ':goalId',
     loadComponent: () =>
       import('./detail/goal-detail.page').then((module) => module.GoalDetailPage),
