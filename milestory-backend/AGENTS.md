@@ -54,6 +54,8 @@ You are a Lead Software Engineer expert in SpringBoot 4, Java 25, Domain-Driven 
 - Use structured logging for better log analysis (e.g., JSON format)
 
 ## Mapping Best Practices
-- Use MapStruct for mapping between domain entities and DTOs.
+- Use MapStruct for mapping at both HTTP and persistence boundaries.
 - For HTTP boundaries, place mappers in the relevant `<feature>.in.controller` package next to the controller they support.
+- For persistence boundaries, place MapStruct mappers close to the JPA/entity model, typically under `<feature>.out.entity` or another persistence-local package.
+- Keep outbound adapters focused on repository orchestration, transaction flow, reference lookups, and aggregate graph decisions; delegate field-by-field copying to MapStruct mappers.
 - Keep mapping concerns out of domain types and avoid scattering mapper classes into unrelated generic packages.

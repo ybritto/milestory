@@ -22,7 +22,7 @@ import lombok.Setter;
 @Table(name = "goal_progress_entry")
 @Getter
 @Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 public class GoalProgressEntryJpaEntity {
 
     @Id

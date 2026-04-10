@@ -19,7 +19,7 @@ import lombok.Setter;
 @Table(name = "goal_checkpoint")
 @Getter
 @Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 public class GoalCheckpointJpaEntity {
 
     @Id

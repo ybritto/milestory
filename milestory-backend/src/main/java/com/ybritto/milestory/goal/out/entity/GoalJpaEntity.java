@@ -23,7 +23,7 @@ import lombok.Setter;
 @Table(name = "goal")
 @Getter
 @Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 public class GoalJpaEntity {
 
     @Id

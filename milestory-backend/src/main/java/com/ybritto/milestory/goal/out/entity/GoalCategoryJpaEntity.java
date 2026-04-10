@@ -15,7 +15,7 @@ import lombok.Setter;
 @Table(name = "goal_category")
 @Getter
 @Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 public class GoalCategoryJpaEntity {
 
     @Id
